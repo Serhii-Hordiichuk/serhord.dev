@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="uk" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0b0f19" />
+    <meta
+      name="description"
+      content="SerHord — systems for business. Websites, integrations, maintenance."
+    />
+    <title>SerHord — Systems for Business</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230b0f19'/><path d='M10 12l-4 4 4 4M22 12l4 4-4 4M18 8l-4 16' stroke='white' stroke-width='2' fill='none' stroke-linecap='round'/></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+Arabic:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- SVG SPRITE -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-arrow-r" viewBox="0 0 24 24">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </symbol>
+        <symbol id="i-arrow-u" viewBox="0 0 24 24">
+          <path d="M12 19V5M6 11l6-6 6 6" />
+        </symbol>
+        <symbol id="i-chev-d" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <path d="M20 6L9 17l-5-5" />
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+          />
+        </symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </symbol>
+        <symbol id="i-cpu" viewBox="0 0 24 24">
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <rect x="9" y="9" width="6" height="6" />
+          <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" />
+        </symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </symbol>
+        <symbol id="i-mail" viewBox="0 0 24 24">
+          <rect x="2" y="4" width="20" height="16" rx="2" />
+          <path d="M22 6l-10 7L2 6" />
+        </symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24">
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+          />
+        </symbol>
+        <symbol id="i-map" viewBox="0 0 24 24">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </symbol>
+        <symbol id="i-send" viewBox="0 0 24 24">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+        </symbol>
+        <symbol id="i-cookie" viewBox="0 0 24 24">
+          <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5z" />
+          <path d="M8.5 8.5v.01M16 15.5v.01M12 12v.01" />
+        </symbol>
+        <symbol id="i-info" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4M12 8h.01" />
+        </symbol>
+        <symbol id="i-alert" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 8v4M12 16h.01" />
+        </symbol>
+        <symbol id="i-tg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path
+            d="M11.9 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.1 0zm4.9 7.2c.1 0 .3 0 .5.1a.5.5 0 0 1 .2.3c0 .1.1.3 0 .5-.2 1.9-1 6.5-1.4 8.6-.2.9-.5 1.2-.8 1.2-.7.1-1.2-.5-1.9-.9-1-.7-1.6-1.1-2.7-1.8-1.2-.8-.4-1.2.3-1.9.2-.2 3.2-3 3.3-3.2v-.2l-.3-.1c-.1 0-1.8 1.1-5 3.3-.5.3-.9.5-1.3.5-.4 0-1.3-.2-1.9-.4-.8-.3-1.4-.4-1.3-.8 0-.2.3-.4.9-.7 3.5-1.5 5.8-2.5 7-3 3.3-1.4 4-1.6 4.5-1.6z"
+          />
+        </symbol>
+        <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path
+            d="M17.5 14.4c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1c-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1s0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5s0-.4 0-.5c-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.5c0 1.5 1.1 2.9 1.2 3.1.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3m-5.4 7.4h-.1a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.9 9.9 0 0 1-1.5-5.3c0-5.4 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7 9.9 9.9 0 0 1-9.9 9.9m8.4-18.3A11.8 11.8 0 0 0 12 0C5.5 0 .2 5.3.2 11.9c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4z"
+          />
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="progress" id="progress"></div>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+      <div class="container nav">
+        <a href="#top" class="logo">
+          <span class="logo__mark"
+            ><svg class="icon"><use href="#i-layers" /></svg
+          ></span>
+          <span>SerHord</span>
+        </a>
+
+        <nav class="menu" id="menu">
+          <a href="#services" data-i18n="nav.services">Services</a>
+          <a href="#work" data-i18n="nav.work">Work</a>
+          <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+          <a href="#calc" data-i18n="nav.calc">Calculator</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+
+        <div class="actions">
+          <div class="langs" id="langs"></div>
+          <button class="btn-icon" id="theme" aria-label="Theme">
+            <svg class="icon" id="themeIcon"><use href="#i-moon" /></svg>
+          </button>
+          <a
+            href="#contact"
+            class="btn btn--primary btn--sm"
+            data-i18n="nav.cta"
+            >Discuss</a
+          >
+          <button class="burger" id="burger" aria-label="Menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="container">
+          <span class="eyebrow" data-i18n="hero.eyebrow"
+            >Business systems · Norway</span
+          >
+          <h1 class="h1">
+            <span data-i18n="hero.t1">I build</span>
+            <span class="accent" data-i18n="hero.t2">systems</span><br />
+            <span data-i18n="hero.t3">that work without you</span>
+          </h1>
+          <p class="lead" data-i18n="hero.lead">
+            Website, integrations, maintenance. All-in-one. For small business
+            and freelancers.
+          </p>
+
+          <div class="hero__cta">
+            <a href="#contact" class="btn btn--primary btn--lg">
+              <span data-i18n="hero.cta1">Discuss project</span>
+              <svg class="icon" data-arrow><use href="#i-arrow-r" /></svg>
+            </a>
+            <a
+              href="#calc"
+              class="btn btn--outline btn--lg"
+              data-i18n="hero.cta2"
+              >Calculate cost</a
+            >
+          </div>
+
+          <div class="hero__stats">
+            <div>
+              <div class="stat__num"><span data-count="3">0</span>+</div>
+              <div class="stat__label" data-i18n="hero.s1">Active projects</div>
+            </div>
+            <div>
+              <div class="stat__num"><span data-count="3">0</span></div>
+              <div class="stat__label" data-i18n="hero.s2">Service models</div>
+            </div>
+            <div>
+              <div class="stat__num">24/7</div>
+              <div class="stat__label" data-i18n="hero.s3">System support</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section class="section" id="services">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="serv.eyebrow">Services</span>
+            <h2 class="h2" data-i18n="serv.title">What I build</h2>
+            <p data-i18n="serv.lead">
+              Three system levels. From website to full infrastructure.
+            </p>
+          </header>
+
+          <div class="grid grid--3">
+            <article class="card">
+              <div class="card__icon">
+                <svg class="icon"><use href="#i-layers" /></svg>
+              </div>
+              <h3 class="card__title" data-i18n="serv.a.title">
+                Website turnkey
+              </h3>
+              <p class="card__text" data-i18n="serv.a.text">
+                Landing, portfolio, catalog. Sells, receives leads, works on
+                mobile.
+              </p>
+              <div class="card__price">
+                <small data-i18n="serv.from">from</small> 8 000 ₴
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card__icon">
+                <svg class="icon"><use href="#i-cpu" /></svg>
+              </div>
+              <h3 class="card__title" data-i18n="serv.b.title">
+                Integrations + AI
+              </h3>
+              <p class="card__text" data-i18n="serv.b.text">
+                CRM, payments, calendar, AI-agent for hot leads. Everything
+                connects.
+              </p>
+              <div class="card__price">
+                <small data-i18n="serv.from">from</small> 15 000 ₴
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card__icon">
+                <svg class="icon"><use href="#i-shield" /></svg>
+              </div>
+              <h3 class="card__title" data-i18n="serv.c.title">Maintenance</h3>
+              <p class="card__text" data-i18n="serv.c.text">
+                Hosting, updates, backups, support. You run business — I run the
+                system.
+              </p>
+              <div class="card__price">
+                <small data-i18n="serv.from">from</small> 1 500 ₴/mo
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK -->
+      <section class="section section--alt" id="work">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="work.eyebrow">Work</span>
+            <h2 class="h2" data-i18n="work.title">Delivered systems</h2>
+          </header>
+
+          <div class="work__grid">
+            <a href="#" class="work-item">
+              <img
+                src="https://picsum.photos/800/600?random=1"
+                alt="Project"
+                loading="lazy"
+              />
+              <div class="work-item__info">
+                <div class="work-item__tag" data-i18n="work.tag1">
+                  Landing · Boats
+                </div>
+                <div class="work-item__title">Hord Boats</div>
+              </div>
+            </a>
+            <a href="#" class="work-item">
+              <img
+                src="https://picsum.photos/800/600?random=2"
+                alt="Project"
+                loading="lazy"
+              />
+              <div class="work-item__info">
+                <div class="work-item__tag" data-i18n="work.tag2">
+                  Portfolio · Photo
+                </div>
+                <div class="work-item__title">Nord Photo</div>
+              </div>
+            </a>
+            <a href="#" class="work-item">
+              <img
+                src="https://picsum.photos/800/600?random=3"
+                alt="Project"
+                loading="lazy"
+              />
+              <div class="work-item__info">
+                <div class="work-item__tag" data-i18n="work.tag3">
+                  Café · Menu
+                </div>
+                <div class="work-item__title">Kafé Nord</div>
+              </div>
+            </a>
+            <a href="#" class="work-item">
+              <img
+                src="https://picsum.photos/800/600?random=4"
+                alt="Project"
+                loading="lazy"
+              />
+              <div class="work-item__info">
+                <div class="work-item__tag" data-i18n="work.tag4">
+                  Salon · Booking
+                </div>
+                <div class="work-item__title">Studio Hår</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section class="section" id="pricing">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="pricing.eyebrow">Pricing</span>
+            <h2 class="h2" data-i18n="pricing.title">
+              Three cooperation models
+            </h2>
+            <p data-i18n="pricing.lead">
+              Choose the control level. Price fixed in contract.
+            </p>
+          </header>
+
+          <div class="grid grid--3">
+            <article class="price">
+              <div class="price__name" data-i18n="pricing.a.name">
+                Subscription
+              </div>
+              <div class="price__num">12 000 ₴</div>
+              <div class="price__sub" data-i18n="pricing.a.sub">
+                + 1 500 ₴/mo
+              </div>
+              <ul class="price__list">
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.a.f1">Code belongs to me</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.a.f2">Full maintenance</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.a.f3">Updates included</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.a.f4">Minimum hassle</span>
+                </li>
+              </ul>
+              <button
+                class="btn btn--outline btn--block"
+                data-modal
+                data-i18n="pricing.choose"
+              >
+                Choose
+              </button>
+            </article>
+
+            <article class="price price--featured">
+              <span class="price__badge" data-i18n="pricing.popular"
+                >Most popular</span
+              >
+              <div class="price__name" data-i18n="pricing.b.name">
+                Handover + service
+              </div>
+              <div class="price__num">25 000 ₴</div>
+              <div class="price__sub" data-i18n="pricing.b.sub">
+                + 1 500 ₴/mo
+              </div>
+              <ul class="price__list">
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.b.f1">Code transferred to you</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.b.f2">Domain, DB, AI — yours</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.b.f3">Maintenance included</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.b.f4">Full control</span>
+                </li>
+              </ul>
+              <button
+                class="btn btn--primary btn--block"
+                data-modal
+                data-i18n="pricing.choose"
+              >
+                Choose
+              </button>
+            </article>
+
+            <article class="price">
+              <div class="price__name" data-i18n="pricing.c.name">
+                Full handover
+              </div>
+              <div class="price__num">40 000 ₴</div>
+              <div class="price__sub" data-i18n="pricing.c.sub">
+                + 1 mo warranty
+              </div>
+              <ul class="price__list">
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.c.f1">Everything transferred</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.c.f2">No further obligations</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.c.f3">Bug warranty — 30 days</span>
+                </li>
+                <li>
+                  <svg class="icon icon--sm"><use href="#i-check" /></svg
+                  ><span data-i18n="pricing.c.f4">Full freedom</span>
+                </li>
+              </ul>
+              <button
+                class="btn btn--outline btn--block"
+                data-modal
+                data-i18n="pricing.choose"
+              >
+                Choose
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CALCULATOR -->
+      <section class="section section--alt" id="calc">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="calc.eyebrow">Calculator</span>
+            <h2 class="h2" data-i18n="calc.title">Estimate cost</h2>
+          </header>
+
+          <div class="calc" id="calcBox">
+            <div class="calc__group">
+              <label class="calc__label" data-i18n="calc.type">Type</label>
+              <div class="calc__opts">
+                <button
+                  class="calc__opt active"
+                  data-g="type"
+                  data-v="landing"
+                  data-i18n="calc.t1"
+                >
+                  Landing
+                </button>
+                <button
+                  class="calc__opt"
+                  data-g="type"
+                  data-v="multi"
+                  data-i18n="calc.t2"
+                >
+                  Multi-page
+                </button>
+                <button
+                  class="calc__opt"
+                  data-g="type"
+                  data-v="shop"
+                  data-i18n="calc.t3"
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
+
+            <div class="calc__group">
+              <label class="calc__label" data-i18n="calc.design">Design</label>
+              <div class="calc__opts">
+                <button
+                  class="calc__opt active"
+                  data-g="design"
+                  data-v="template"
+                  data-i18n="calc.d1"
+                >
+                  Template
+                </button>
+                <button
+                  class="calc__opt"
+                  data-g="design"
+                  data-v="custom"
+                  data-i18n="calc.d2"
+                >
+                  Custom
+                </button>
+              </div>
+            </div>
+
+            <div class="calc__group">
+              <label class="calc__label" data-i18n="calc.extras">Extras</label>
+              <div class="calc__opts">
+                <button class="calc__opt" data-g="extras" data-v="seo">
+                  SEO
+                </button>
+                <button class="calc__opt" data-g="extras" data-v="ai">
+                  AI
+                </button>
+                <button class="calc__opt" data-g="extras" data-v="crm">
+                  CRM
+                </button>
+                <button class="calc__opt" data-g="extras" data-v="pay">
+                  Pay
+                </button>
+              </div>
+            </div>
+
+            <div class="calc__total">
+              <div>
+                <div class="calc__total-label" data-i18n="calc.total">
+                  Estimated cost
+                </div>
+                <div class="calc__total-value" id="calcTotal">8 000 ₴</div>
+              </div>
+              <button class="btn btn--primary btn--lg" data-modal>
+                <span data-i18n="calc.discuss">Discuss</span>
+                <svg class="icon" data-arrow><use href="#i-arrow-r" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow">FAQ</span>
+            <h2 class="h2" data-i18n="faq.title">Questions & answers</h2>
+          </header>
+
+          <div class="faq">
+            <div class="faq-item">
+              <button class="faq-q">
+                <span data-i18n="faq.q1">How long does development take?</span>
+                <span class="faq-icon"
+                  ><svg><use href="#i-chev-d" /></svg
+                ></span>
+              </button>
+              <div class="faq-a">
+                <div data-i18n="faq.a1">
+                  Landing — 5-7 days. Multi-page — 2-4 weeks. Integrations —
+                  depends on complexity.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q">
+                <span data-i18n="faq.q2">Who owns the code?</span>
+                <span class="faq-icon"
+                  ><svg><use href="#i-chev-d" /></svg
+                ></span>
+              </button>
+              <div class="faq-a">
+                <div data-i18n="faq.a2">
+                  Depends on the plan. Subscription — mine. Handover — yours.
+                  All in the contract.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q">
+                <span data-i18n="faq.q3">What is included in maintenance?</span>
+                <span class="faq-icon"
+                  ><svg><use href="#i-chev-d" /></svg
+                ></span>
+              </button>
+              <div class="faq-a">
+                <div data-i18n="faq.a3">
+                  Hosting, updates, backups, monitoring, bug fixes, minor
+                  changes. All within the plan.
+                </div>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q">
+                <span data-i18n="faq.q4">Do you work by contract?</span>
+                <span class="faq-icon"
+                  ><svg><use href="#i-chev-d" /></svg
+                ></span>
+              </button>
+              <div class="faq-a">
+                <div data-i18n="faq.a4">
+                  Yes. Contract in Norwegian or English. I work as ENK (sole
+                  proprietor).
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEWSLETTER -->
+      <section class="section section--alt">
+        <div class="container">
+          <div class="newsletter">
+            <div class="newsletter__icon">
+              <svg class="icon"><use href="#i-mail" /></svg>
+            </div>
+            <h3 class="newsletter__title" data-i18n="news.title">
+              Once a month — one email
+            </h3>
+            <p class="newsletter__text" data-i18n="news.text">
+              What is new at SerHord. No spam.
+            </p>
+            <form class="newsletter__form" id="newsForm">
+              <input
+                type="email"
+                class="newsletter__input"
+                placeholder="you@example.com"
+                required
+                aria-label="Email"
+              />
+              <button
+                type="submit"
+                class="btn btn--primary"
+                data-i18n="news.btn"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section" id="contact">
+        <div class="container">
+          <header class="section__head">
+            <span class="eyebrow" data-i18n="contact.eyebrow">Contact</span>
+            <h2 class="h2" data-i18n="contact.title">
+              Let's discuss your project
+            </h2>
+            <p data-i18n="contact.lead">I reply within 24 hours</p>
+          </header>
+
+          <div class="contact">
+            <form class="form" id="contactForm" novalidate>
+              <div class="form__row">
+                <div class="form__group">
+                  <label data-i18n="form.name">Name</label>
+                  <input type="text" name="name" required autocomplete="name" />
+                  <span class="form__err"></span>
+                </div>
+                <div class="form__group">
+                  <label data-i18n="form.phone">Phone</label>
+                  <input type="tel" name="phone" required autocomplete="tel" />
+                  <span class="form__err"></span>
+                </div>
+              </div>
+              <div class="form__group">
+                <label data-i18n="form.email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                />
+                <span class="form__err"></span>
+              </div>
+              <div class="form__group">
+                <label data-i18n="form.msg">Message</label>
+                <textarea name="message" rows="5" required></textarea>
+                <span class="form__err"></span>
+              </div>
+              <button type="submit" class="btn btn--primary btn--lg btn--block">
+                <svg class="icon"><use href="#i-send" /></svg>
+                <span data-i18n="form.submit">Send</span>
+              </button>
+            </form>
+
+            <aside class="contact__info">
+              <div class="info">
+                <div class="info__icon">
+                  <svg class="icon"><use href="#i-mail" /></svg>
+                </div>
+                <div>
+                  <div class="info__label">Email</div>
+                  <div class="info__val">hello@serhord.dev</div>
+                </div>
+              </div>
+              <div class="info">
+                <div class="info__icon">
+                  <svg class="icon"><use href="#i-phone" /></svg>
+                </div>
+                <div>
+                  <div class="info__label" data-i18n="contact.phone">Phone</div>
+                  <div class="info__val">+47 ...</div>
+                </div>
+              </div>
+              <div class="info">
+                <div class="info__icon">
+                  <svg class="icon"><use href="#i-map" /></svg>
+                </div>
+                <div>
+                  <div class="info__label" data-i18n="contact.loc">
+                    Location
+                  </div>
+                  <div class="info__val">Norway</div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div>
+            <a href="#top" class="logo">
+              <span class="logo__mark"
+                ><svg class="icon"><use href="#i-layers" /></svg
+              ></span>
+              <span>SerHord</span>
+            </a>
+            <p class="footer__desc" data-i18n="footer.desc">
+              Business systems. Built in Norway.
+            </p>
+          </div>
+          <div>
+            <div class="footer__title" data-i18n="footer.nav">Navigation</div>
+            <a href="#services" data-i18n="nav.services">Services</a>
+            <a href="#work" data-i18n="nav.work">Work</a>
+            <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+            <a href="#contact" data-i18n="nav.contact">Contact</a>
+          </div>
+          <div>
+            <div class="footer__title" data-i18n="footer.legal">Legal</div>
+            <a href="#" data-i18n="footer.terms">Terms</a>
+            <a href="#" data-i18n="footer.privacy">Privacy</a>
+          </div>
+          <div>
+            <div class="footer__title" data-i18n="footer.social">Social</div>
+            <a href="https://t.me/serhord" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://github.com/serhord" target="_blank" rel="noopener"
+              >GitHub</a
+            >
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <span>© 2025 SerHord</span>
+          <span data-i18n="footer.made">Built in Norway</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- FLOAT -->
+    <div class="float">
+      <a
+        href="https://t.me/serhord"
+        class="float__btn float__btn--tg"
+        aria-label="Telegram"
+        target="_blank"
+        rel="noopener"
+      >
+        <svg class="icon"><use href="#i-tg" /></svg>
+      </a>
+      <a
+        href="https://wa.me/47xxxxxxxxx"
+        class="float__btn float__btn--wa"
+        aria-label="WhatsApp"
+        target="_blank"
+        rel="noopener"
+      >
+        <svg class="icon"><use href="#i-wa" /></svg>
+      </a>
+    </div>
+
+    <button class="to-top" id="toTop" aria-label="Top">
+      <svg class="icon"><use href="#i-arrow-u" /></svg>
+    </button>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+      <div class="modal__box" role="dialog" aria-modal="true">
+        <button class="modal__close" data-close aria-label="Close">
+          <svg class="icon"><use href="#i-close" /></svg>
+        </button>
+        <h3 class="modal__title" data-i18n="modal.title">Leave a request</h3>
+        <p class="modal__desc" data-i18n="modal.desc">
+          I will reply within an hour.
+        </p>
+        <form id="modalForm">
+          <div class="form__group">
+            <input type="text" name="name" placeholder="Name" required />
+          </div>
+          <div class="form__group">
+            <input type="tel" name="phone" placeholder="Phone" required />
+          </div>
+          <button type="submit" class="btn btn--primary btn--block btn--lg">
+            <svg class="icon"><use href="#i-send" /></svg>
+            <span data-i18n="modal.submit">Send</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- COOKIE -->
+    <div class="cookie" id="cookie">
+      <svg class="icon"><use href="#i-cookie" /></svg>
+      <span data-i18n="cookie.text"
+        >We use cookies to improve your experience.</span
+      >
+      <div class="cookie__btns">
+        <button
+          class="btn btn--ghost btn--sm"
+          data-cookie="no"
+          data-i18n="cookie.no"
+        >
+          Decline
+        </button>
+        <button
+          class="btn btn--primary btn--sm"
+          data-cookie="yes"
+          data-i18n="cookie.yes"
+        >
+          Accept
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
