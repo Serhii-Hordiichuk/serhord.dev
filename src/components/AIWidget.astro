@@ -86,9 +86,9 @@ const SITE_URL = import.meta.env.PUBLIC_OPENROUTER_SITE_URL || 'https://serhord.
 
   const COMPANY = PAGE_LANG === 'no'
     ? `SerHord.dev: webutvikling (Astro/Next, 5900kr+), drift (VPS/backup/e-post), KI på egne data (EU), OSINT+sikkerhet+personvern (OWASP-sjekk, lekkasje, 2900kr+), verksted: virus-rens 990kr+, OS-install Win/Linux/ChromeOS 790kr+, SSD/RAM/skjerm/batteri, lokal server/NAS Nextcloud+VPN, vedlikehold. Fastpris, du eier alt, svar 24t, norsk faktura. Kontakt: skjema + Cal.com intro.`
-    : `SerHord.dev: web dev (Astro/Next, €490+), ops (VPS/backup/email), AI on your data (EU), OSINT+security+privacy (OWASP check, leaks, €240+), workshop: malware cleanup €80+, OS install Win/Linux/ChromeOS €65+, SSD/RAM/screen/battery, local server/NAS Nextcloud+VPN, care plans. Fixed price, you own everything, 24h reply. Contact: form + Cal.com intro.`;
+    : `SerHord.dev: web dev (Astro/Next, NOK 5900+), ops (VPS/backup/email), AI on your data (EU), OSINT+security+privacy (OWASP check, leaks, NOK 2900+), workshop: malware cleanup NOK 990+, OS install Win/Linux/ChromeOS NOK 790+, SSD/RAM/screen/battery, local server/NAS Nextcloud+VPN, care plans. Fixed price, you own everything, 24h reply. Based in Ørsta/Volda, Norway. Contact: call +47 96 68 92 37, form + Cal.com intro.`;
 
-  const SYS = `You are the SerHord.dev AI manager for individuals & small business in Norway. Language: reply in ${PAGE_LANG === 'no' ? 'Norwegian Bokmål' : 'English'}. Be honest, calm, concrete. COMPANY: ${COMPANY} RULES: 1) Always end with ONE irresistible concrete next step: fixed-price package + CTA "→ #contact" or booking. Never refuse — if out of scope, offer closest alternative + honest boundary. 2) OSINT/security only legal/ethical: open sources + consent, no hacking/stalking; say so briefly. 3) Keep answers under 120 words, bullets allowed. 4) Prices: Start 5900kr/€490, Business OS 17900kr/€1490, Care 990kr/€79, OSINT 2900kr/€240, virus-rens 990kr/€80, OS-install 790kr/€65.`;
+  const SYS = `You are the SerHord.dev AI manager for individuals & small business in Norway. Language: reply in ${PAGE_LANG === 'no' ? 'Norwegian Bokmål' : 'English'}. Be honest, calm, concrete. COMPANY: ${COMPANY} RULES: 1) Always end with ONE irresistible concrete next step: fixed-price package + CTA "→ #contact" or booking. Never refuse — if out of scope, offer closest alternative + honest boundary. 2) OSINT/security only legal/ethical: open sources + consent, no hacking/stalking; say so briefly. 3) Keep answers under 120 words, bullets allowed. 4) Prices NOK only: Start 5900, Business OS 17900, Care 990/mo, OSINT 2900, malware cleanup 990, OS install 790, repair from 1500, server/NAS from 6900, maintenance from 490/mo. Base Ørsta/Volda — visits there, calls welcome at +47 96 68 92 37.`;
 
   const history = [{ role: 'system', content: SYS }];
 
@@ -116,28 +116,28 @@ const SITE_URL = import.meta.env.PUBLIC_OPENROUTER_SITE_URL || 'https://serhord.
     const has = (...ws) => ws.some((w) => s.includes(w));
     if (has('virus', 'treg', 'slow', 'malware', 'antivirus')) return (PAGE_LANG === 'no'
       ? `🛡️ <b>Virus-rens fra 990 kr:</b> rens + antivirus + nettleser/e-post-herding + 2FA. Tar 1–2 dager, du får logg over alt som ble fjernet. <b>Uimotståelig:</b> rens + OS-helsesjekk + backup-oppsett i samme slengen — si ifra så reserverer jeg tid i morgen.`
-      : `🛡️ <b>Malware cleanup from €80:</b> cleanup + antivirus + browser/email hardening + 2FA. 1–2 days with a removal log. <b>Deal:</b> cleanup + health check + backup setup together — I can start tomorrow.`) + CTA;
+      : `🛡️ <b>Malware cleanup from NOK 990:</b> cleanup + antivirus + browser/email hardening + 2FA. 1–2 days with a removal log. <b>Deal:</b> cleanup + health check + backup setup together — I can start tomorrow.`) + CTA;
     if (has('windows', 'linux', 'chromeos', 'chrome os', 'install', 'installer', 'ubuntu', 'mint')) return (PAGE_LANG === 'no'
       ? `💽 <b>OS-install fra 790 kr:</b> Windows, Ubuntu/Mint eller ChromeOS Flex — drivere, norsk språk, printer og WiFi ferdig. Tar med backup av filene dine først. <b>Bonus:</b> SSD-sjekk gratis under install.`
-      : `💽 <b>OS install from €65:</b> Windows, Ubuntu/Mint or ChromeOS Flex — drivers, language, printer & WiFi ready. Files backed up first. <b>Bonus:</b> free SSD health check during install.`) + CTA;
+      : `💽 <b>OS install from NOK 790:</b> Windows, Ubuntu/Mint or ChromeOS Flex — drivers, language, printer & WiFi ready. Files backed up first. <b>Bonus:</b> free SSD health check during install.`) + CTA;
     if (has('ssd', 'ram', 'skjerm', 'batteri', 'repair', 'reparasjon', 'screen', 'battery', 'vifte', 'kjøling')) return (PAGE_LANG === 'no'
       ? `🔧 <b>Reparasjon:</b> SSD/RAM-oppgradering (vanligvis 1500–3500 kr inkl. deler), skjerm/batteri etter modell. Du får fastpris FØR jeg skrur. Send modellnavn så sjekker jeg deler i dag.`
-      : `🔧 <b>Repair:</b> SSD/RAM upgrade (typically €120–290 incl. parts), screen/battery per model. Fixed quote BEFORE I open it. Send the model name and I'll check parts today.`) + CTA;
+      : `🔧 <b>Repair:</b> SSD/RAM upgrade (typically NOK 1500–3500 incl. parts), screen/battery per model. Fixed quote BEFORE I open it. Send the model name and I'll check parts today.`) + CTA;
     if (has('server', 'nas', 'nextcloud', 'vpn', 'lokal', 'lagring', 'backup')) return (PAGE_LANG === 'no'
       ? `🗄️ <b>Lokal server/NAS:</b> Nextcloud + backup 3-2-1 + VPN — familien eller kontoret eier dataene selv, ingen månedsavgift til USA-skyer. Fra ca. 6900 kr inkl. oppsett.`
-      : `🗄️ <b>Local server/NAS:</b> Nextcloud + 3-2-1 backup + VPN — you own the data, no US-cloud monthly fee. From ~€590 incl. setup.`) + CTA;
+      : `🗄️ <b>Local server/NAS:</b> Nextcloud + 3-2-1 backup + VPN — you own the data, no US-cloud monthly fee. From ~NOK 6900 incl. setup.`) + CTA;
     if (has('nettside', 'website', 'nettbutikk', 'landing', 'side', 'seo')) return (PAGE_LANG === 'no'
       ? `◧ <b>Nettside:</b> Start fra 5900 kr (7–10 dager) eller Business OS fra 17900 kr (side + booking + e-post + drift + KI). 90+ Lighthouse, du eier domene og kode. <b>Foreslår:</b> gratis 15-min intro i dag → fastpris i morgen.`
-      : `◧ <b>Website:</b> Start from €490 (7–10 days) or Business OS from €1490 (site + booking + email + ops + AI). 90+ Lighthouse, you own domain & code. <b>Suggest:</b> free 15-min intro today → fixed quote tomorrow.`) + CTA;
+      : `◧ <b>Website:</b> Start from NOK 5900 (7–10 days) or Business OS from NOK 17900 (site + booking + email + ops + AI). 90+ Lighthouse, you own domain & code. <b>Suggest:</b> free 15-min intro today → fixed quote tomorrow.`) + CTA;
     if (has('ki', ' ai', 'chatbot', 'rag', 'automatis')) return (PAGE_LANG === 'no'
       ? `✦ <b>KI på dine data:</b> chatbot på nettsiden + svar fra dine dokumenter (RAG), EU-hosting, logging av hva modellen ser. Pilot fra ca. 8900 kr. Send 2–3 eksempel-dokumenter så lager jeg demo.`
-      : `✦ <b>AI on your data:</b> site chatbot + answers from your docs (RAG), EU hosting, model-access logging. Pilot from ~€740. Send 2–3 sample docs and I'll build a demo.`) + CTA;
+      : `✦ <b>AI on your data:</b> site chatbot + answers from your docs (RAG), EU hosting, model-access logging. Pilot from ~NOK 8900. Send 2–3 sample docs and I'll build a demo.`) + CTA;
     if (has('osint', 'owasp', 'lekkas', 'leak', 'personvern', 'privacy', 'sikkerhet', 'security', 'passord', 'svindel', 'hack')) return (PAGE_LANG === 'no'
       ? `◎ <b>Sikkerhetssjekk fra 2900 kr:</b> lekkasje/passord, OWASP Top-10 nettside-sjekk, personvern-opprydding (trackere, 2FA, backup). Kun lovlig: åpne kilder + ditt samtykke, skriftlig rapport med fiks.`
-      : `◎ <b>Security check from €240:</b> leak/password, OWASP Top-10 site check, privacy cleanup (trackers, 2FA, backup). Legal only: open sources + your consent, written fix report.`) + CTA;
+      : `◎ <b>Security check from NOK 2900:</b> leak/password, OWASP Top-10 site check, privacy cleanup (trackers, 2FA, backup). Legal only: open sources + your consent, written fix report.`) + CTA;
     if (has('pris', 'price', 'kost', 'cost', 'koster')) return (PAGE_LANG === 'no'
       ? `💰 <b>Faste priser:</b> Start 5900 kr • Business OS 17900 kr • Care 990 kr/mnd • OSINT 2900 kr • virus-rens 990 kr • OS-install 790 kr. Alt eks. mva, skriftlig tilbud, ingen binding. Hva passer best for deg?`
-      : `💰 <b>Fixed prices:</b> Start €490 • Business OS €1490 • Care €79/mo • OSINT €240 • cleanup €80 • OS install €65. Written quote, no lock-in. Which fits you?`) + CTA;
+      : `💰 <b>Fixed prices (NOK):</b> Start 5900 • Business OS 17900 • Care 990/mo • OSINT 2900 • cleanup 990 • OS install 790. Written quote, no lock-in. Which fits you?`) + CTA;
     if (has('hei', 'hallo', 'hello', 'hi', 'hjelp', 'help')) return (PAGE_LANG === 'no'
       ? `Hei! Si kort hva som plager deg — treg PC, nettside, e-post, sikkerhet? Jeg svarer med konkret pakke + fastpris med en gang.`
       : `Hi! Briefly say what bothers you — slow PC, website, email, security? I'll reply with a concrete package + fixed price right away.`);
