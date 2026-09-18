@@ -46,6 +46,19 @@ const { t } = Astro.props;
         </article>
       ))}
     </div>
+
+    <div class="mt-6 rounded-2xl border border-dashed border-[var(--color-ink)]/30 bg-[var(--color-cream)] p-6">
+      <p class="mono-label text-[var(--color-muted)]">{t.services.extrasLabel}</p>
+      <h3 class="mt-2 text-xl font-semibold" style="font-family: var(--font-display)">{t.services.extrasTitle}</h3>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {(t.services as any).extras.map((e: any) => (
+          <a href="#contact" class="card-hover rounded-xl border border-[var(--color-line)] bg-white p-4">
+            <p class="text-[15px] font-semibold">＋ {e.t}</p>
+            <p class="mt-1 text-sm leading-relaxed text-[var(--color-ink-soft)]">{e.d}</p>
+          </a>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
 

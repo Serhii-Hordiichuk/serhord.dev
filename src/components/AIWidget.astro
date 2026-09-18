@@ -1,0 +1,210 @@
+---
+import type { Dict } from '../i18n/no';
+
+interface Props {
+  t: Dict;
+  lang: string;
+}
+const { t, lang } = Astro.props;
+const ai = (t as any).ai;
+
+const OPENROUTER_KEY = import.meta.env.PUBLIC_OPENROUTER_API_KEY || '';
+const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-4o-mini';
+const SITE_URL = import.meta.env.PUBLIC_OPENROUTER_SITE_URL || 'https://serhord.dev';
+---
+
+<div id="ai-widget" data-lang={lang} data-has-key={OPENROUTER_KEY ? '1' : ''} data-key={OPENROUTER_KEY} data-model={OPENROUTER_MODEL} data-site={SITE_URL}>
+  <button
+    id="ai-fab"
+    aria-label="Open AI manager"
+    class="fixed bottom-5 right-5 z-[60] grid h-14 w-14 place-items-center rounded-full bg-[var(--color-ink)] text-2xl text-[var(--color-lime)] shadow-[4px_4px_0_0_var(--color-accent)] transition hover:-translate-y-0.5"
+  >
+    ✦
+    <span id="ai-dot" class="absolute -right-0.5 -top-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-500"></span>
+  </button>
+
+  <div id="ai-tip" class="fixed bottom-[84px] right-5 z-[60] hidden max-w-[240px] rounded-xl border border-[var(--color-ink)] bg-white px-3 py-2 text-[13px] shadow-lg">
+    {ai.greet.slice(0, 90)}…
+  </div>
+
+  <section
+    id="ai-panel"
+    class="fixed bottom-5 right-5 z-[61] hidden w-[min(380px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[var(--color-ink)] bg-white shadow-[8px_8px_0_0_var(--color-ink)]"
+  >
+    <header class="flex items-center justify-between bg-[var(--color-ink)] px-4 py-3 text-white">
+      <div class="flex items-center gap-2.5">
+        <span class="grid h-8 w-8 place-items-center rounded-full bg-[var(--color-lime)] text-black">✦</span>
+        <div>
+          <p class="text-sm font-bold leading-none">{ai.name}</p>
+          <p class="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-green-300">
+            <span class="inline-block h-1.5 w-1.5 rounded-full bg-green-400"></span>{ai.online} · OpenRouter
+          </p>
+        </div>
+      </div>
+      <button id="ai-close" class="rounded-full px-2 py-1 text-white/70 hover:bg-white/10 hover:text-white">✕</button>
+    </header>
+
+    <div id="ai-messages" class="h-[340px] space-y-2.5 overflow-y-auto bg-[var(--color-paper)] p-4 text-sm"></div>
+
+    <div id="ai-chips" class="flex flex-wrap gap-1.5 border-t border-[var(--color-line)] bg-white px-3 pt-2.5">
+      {ai.chips.map((c: string) => (
+        <button class="ai-chip rounded-full border border-[var(--color-line)] px-3 py-1 text-xs font-medium hover:border-black hover:bg-[var(--color-lime)]" data-chip={c}>
+          {c}
+        </button>
+      ))}
+    </div>
+
+    <form id="ai-form" class="flex gap-2 bg-white p-3">
+      <input
+        id="ai-input"
+        autocomplete="off"
+        placeholder={ai.placeholder}
+        class="w-full rounded-full border border-[var(--color-line)] px-4 py-2 text-sm focus:border-black focus:outline-none"
+      />
+      <button class="shrink-0 rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-bold text-white hover:bg-[var(--color-accent-dark)]">
+        {ai.send}
+      </button>
+    </form>
+    <p class="bg-white px-4 pb-2.5 font-mono text-[10px] text-[var(--color-muted)]">{ai.note}</p>
+  </section>
+</div>
+
+<script define:vars={{ lang, systemPrompt: '', uiGreet: ai.greet, uiCta: ai.offerCta }}>
+  const root = document.getElementById('ai-widget');
+  const fab = document.getElementById('ai-fab');
+  const panel = document.getElementById('ai-panel');
+  const closeBtn = document.getElementById('ai-close');
+  const tip = document.getElementById('ai-tip');
+  const box = document.getElementById('ai-messages');
+  const form = document.getElementById('ai-form');
+  const input = document.getElementById('ai-input');
+
+  const hasKey = root?.dataset.hasKey === '1';
+  const model = root?.dataset.model || 'openai/gpt-4o-mini';
+  const siteUrl = root?.dataset.site || location.origin;
+  const PAGE_LANG = root?.dataset.lang || 'no';
+
+  const COMPANY = PAGE_LANG === 'no'
+    ? `SerHord.dev: webutvikling (Astro/Next, 5900kr+), drift (VPS/backup/e-post), KI på egne data (EU), OSINT+sikkerhet+personvern (OWASP-sjekk, lekkasje, 2900kr+), verksted: virus-rens 990kr+, OS-install Win/Linux/ChromeOS 790kr+, SSD/RAM/skjerm/batteri, lokal server/NAS Nextcloud+VPN, vedlikehold. Fastpris, du eier alt, svar 24t, norsk faktura. Kontakt: skjema + Cal.com intro.`
+    : `SerHord.dev: web dev (Astro/Next, €490+), ops (VPS/backup/email), AI on your data (EU), OSINT+security+privacy (OWASP check, leaks, €240+), workshop: malware cleanup €80+, OS install Win/Linux/ChromeOS €65+, SSD/RAM/screen/battery, local server/NAS Nextcloud+VPN, care plans. Fixed price, you own everything, 24h reply. Contact: form + Cal.com intro.`;
+
+  const SYS = `You are the SerHord.dev AI manager for individuals & small business in Norway. Language: reply in ${PAGE_LANG === 'no' ? 'Norwegian Bokmål' : 'English'}. Be honest, calm, concrete. COMPANY: ${COMPANY} RULES: 1) Always end with ONE irresistible concrete next step: fixed-price package + CTA "→ #contact" or booking. Never refuse — if out of scope, offer closest alternative + honest boundary. 2) OSINT/security only legal/ethical: open sources + consent, no hacking/stalking; say so briefly. 3) Keep answers under 120 words, bullets allowed. 4) Prices: Start 5900kr/€490, Business OS 17900kr/€1490, Care 990kr/€79, OSINT 2900kr/€240, virus-rens 990kr/€80, OS-install 790kr/€65.`;
+
+  const history = [{ role: 'system', content: SYS }];
+
+  function bubble(who, text) {
+    const wrap = document.createElement('div');
+    wrap.className = who === 'me' ? 'flex justify-end' : 'flex justify-start';
+    const b = document.createElement('div');
+    b.className = who === 'me'
+      ? 'max-w-[85%] rounded-2xl rounded-br-sm bg-[var(--color-ink)] px-3.5 py-2.5 text-white'
+      : 'max-w-[85%] rounded-2xl rounded-bl-sm border border-[var(--color-line)] bg-white px-3.5 py-2.5';
+    b.innerHTML = text;
+    wrap.appendChild(b);
+    box.appendChild(wrap);
+    box.scrollTop = box.scrollHeight;
+    return b;
+  }
+
+  function esc(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\n/g, '<br>');
+  }
+
+  function localBrain(q) {
+    const s = q.toLowerCase();
+    const CTA = `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">${document.querySelector('#ai-widget') ? '' : ''}👉 ${PAGE_LANG === 'no' ? 'Be om dette' : 'Request this'} →</a>`;
+    const has = (...ws) => ws.some((w) => s.includes(w));
+    if (has('virus', 'treg', 'slow', 'malware', 'antivirus')) return (PAGE_LANG === 'no'
+      ? `🛡️ <b>Virus-rens fra 990 kr:</b> rens + antivirus + nettleser/e-post-herding + 2FA. Tar 1–2 dager, du får logg over alt som ble fjernet. <b>Uimotståelig:</b> rens + OS-helsesjekk + backup-oppsett i samme slengen — si ifra så reserverer jeg tid i morgen.`
+      : `🛡️ <b>Malware cleanup from €80:</b> cleanup + antivirus + browser/email hardening + 2FA. 1–2 days with a removal log. <b>Deal:</b> cleanup + health check + backup setup together — I can start tomorrow.`) + CTA;
+    if (has('windows', 'linux', 'chromeos', 'chrome os', 'install', 'installer', 'ubuntu', 'mint')) return (PAGE_LANG === 'no'
+      ? `💽 <b>OS-install fra 790 kr:</b> Windows, Ubuntu/Mint eller ChromeOS Flex — drivere, norsk språk, printer og WiFi ferdig. Tar med backup av filene dine først. <b>Bonus:</b> SSD-sjekk gratis under install.`
+      : `💽 <b>OS install from €65:</b> Windows, Ubuntu/Mint or ChromeOS Flex — drivers, language, printer & WiFi ready. Files backed up first. <b>Bonus:</b> free SSD health check during install.`) + CTA;
+    if (has('ssd', 'ram', 'skjerm', 'batteri', 'repair', 'reparasjon', 'screen', 'battery', 'vifte', 'kjøling')) return (PAGE_LANG === 'no'
+      ? `🔧 <b>Reparasjon:</b> SSD/RAM-oppgradering (vanligvis 1500–3500 kr inkl. deler), skjerm/batteri etter modell. Du får fastpris FØR jeg skrur. Send modellnavn så sjekker jeg deler i dag.`
+      : `🔧 <b>Repair:</b> SSD/RAM upgrade (typically €120–290 incl. parts), screen/battery per model. Fixed quote BEFORE I open it. Send the model name and I'll check parts today.`) + CTA;
+    if (has('server', 'nas', 'nextcloud', 'vpn', 'lokal', 'lagring', 'backup')) return (PAGE_LANG === 'no'
+      ? `🗄️ <b>Lokal server/NAS:</b> Nextcloud + backup 3-2-1 + VPN — familien eller kontoret eier dataene selv, ingen månedsavgift til USA-skyer. Fra ca. 6900 kr inkl. oppsett.`
+      : `🗄️ <b>Local server/NAS:</b> Nextcloud + 3-2-1 backup + VPN — you own the data, no US-cloud monthly fee. From ~€590 incl. setup.`) + CTA;
+    if (has('nettside', 'website', 'nettbutikk', 'landing', 'side', 'seo')) return (PAGE_LANG === 'no'
+      ? `◧ <b>Nettside:</b> Start fra 5900 kr (7–10 dager) eller Business OS fra 17900 kr (side + booking + e-post + drift + KI). 90+ Lighthouse, du eier domene og kode. <b>Foreslår:</b> gratis 15-min intro i dag → fastpris i morgen.`
+      : `◧ <b>Website:</b> Start from €490 (7–10 days) or Business OS from €1490 (site + booking + email + ops + AI). 90+ Lighthouse, you own domain & code. <b>Suggest:</b> free 15-min intro today → fixed quote tomorrow.`) + CTA;
+    if (has('ki', ' ai', 'chatbot', 'rag', 'automatis')) return (PAGE_LANG === 'no'
+      ? `✦ <b>KI på dine data:</b> chatbot på nettsiden + svar fra dine dokumenter (RAG), EU-hosting, logging av hva modellen ser. Pilot fra ca. 8900 kr. Send 2–3 eksempel-dokumenter så lager jeg demo.`
+      : `✦ <b>AI on your data:</b> site chatbot + answers from your docs (RAG), EU hosting, model-access logging. Pilot from ~€740. Send 2–3 sample docs and I'll build a demo.`) + CTA;
+    if (has('osint', 'owasp', 'lekkas', 'leak', 'personvern', 'privacy', 'sikkerhet', 'security', 'passord', 'svindel', 'hack')) return (PAGE_LANG === 'no'
+      ? `◎ <b>Sikkerhetssjekk fra 2900 kr:</b> lekkasje/passord, OWASP Top-10 nettside-sjekk, personvern-opprydding (trackere, 2FA, backup). Kun lovlig: åpne kilder + ditt samtykke, skriftlig rapport med fiks.`
+      : `◎ <b>Security check from €240:</b> leak/password, OWASP Top-10 site check, privacy cleanup (trackers, 2FA, backup). Legal only: open sources + your consent, written fix report.`) + CTA;
+    if (has('pris', 'price', 'kost', 'cost', 'koster')) return (PAGE_LANG === 'no'
+      ? `💰 <b>Faste priser:</b> Start 5900 kr • Business OS 17900 kr • Care 990 kr/mnd • OSINT 2900 kr • virus-rens 990 kr • OS-install 790 kr. Alt eks. mva, skriftlig tilbud, ingen binding. Hva passer best for deg?`
+      : `💰 <b>Fixed prices:</b> Start €490 • Business OS €1490 • Care €79/mo • OSINT €240 • cleanup €80 • OS install €65. Written quote, no lock-in. Which fits you?`) + CTA;
+    if (has('hei', 'hallo', 'hello', 'hi', 'hjelp', 'help')) return (PAGE_LANG === 'no'
+      ? `Hei! Si kort hva som plager deg — treg PC, nettside, e-post, sikkerhet? Jeg svarer med konkret pakke + fastpris med en gang.`
+      : `Hi! Briefly say what bothers you — slow PC, website, email, security? I'll reply with a concrete package + fixed price right away.`);
+    return (PAGE_LANG === 'no'
+      ? `Skjønner! For å gi deg <b>best mulig tilbud med en gang</b>: er det (1) PC/server, (2) nettside, (3) KI eller (4) sikkerhet/personvern? Svar med ett tall — så sender jeg pakke + fastpris + ledig tid.`
+      : `Got it! To give you the <b>best offer right away</b>: is it (1) PC/server, (2) website, (3) AI or (4) security/privacy? Reply with one number — I'll send package + price + slot.`);
+  }
+
+  async function askAI(q) {
+    if (!hasKey) return localBrain(q);
+    history.push({ role: 'user', content: q });
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${root.dataset.key || ''}`,
+          'HTTP-Referer': siteUrl,
+          'X-Title': 'SerHord.dev AI manager',
+        },
+        body: JSON.stringify({ model, messages: history.slice(-12), temperature: 0.6, max_tokens: 400 }),
+      });
+      if (!res.ok) throw new Error('openrouter ' + res.status);
+      const data = await res.json();
+      const text = data.choices?.[0]?.message?.content || '';
+      history.push({ role: 'assistant', content: text });
+      return esc(text) + `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">👉 ${PAGE_LANG === 'no' ? 'Be om dette' : 'Request this'} →</a>`;
+    } catch (e) {
+      return localBrain(q);
+    }
+  }
+
+  let opened = false;
+  function open() {
+    panel.classList.remove('hidden');
+    tip.classList.add('hidden');
+    if (!opened) {
+      opened = true;
+      bubble('ai', esc(uiGreet));
+    }
+    setTimeout(() => input?.focus(), 50);
+  }
+  fab?.addEventListener('click', () => (panel.classList.contains('hidden') ? open() : panel.classList.add('hidden')));
+  closeBtn?.addEventListener('click', () => panel.classList.add('hidden'));
+  setTimeout(() => { if (!opened) tip.classList.remove('hidden'); }, 6000);
+  setTimeout(() => tip.classList.add('hidden'), 16000);
+
+  document.querySelectorAll('.ai-chip').forEach((ch) =>
+    ch.addEventListener('click', async () => {
+      open();
+      const q = ch.dataset.chip || '';
+      bubble('me', esc(q));
+      const t = bubble('ai', '…');
+      t.innerHTML = await askAI(q);
+      box.scrollTop = box.scrollHeight;
+    })
+  );
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const q = input.value.trim();
+    if (!q) return;
+    open();
+    bubble('me', esc(q));
+    input.value = '';
+    const t = bubble('ai', '…');
+    t.innerHTML = await askAI(q);
+    box.scrollTop = box.scrollHeight;
+  });
+</script>
