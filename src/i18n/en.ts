@@ -111,8 +111,8 @@ export const en: Dict = {
   },
   ai: {
     name: 'Serhord AI manager',
-    greet: 'Hey, so nice you stopped by! 😊 I’m the AI manager here at SerHord.dev. Tell me — what’s your name, and how’s your day going?',
-    placeholder: 'Type, talk 🎙️ or attach files 📎…',
+    greet: 'Hey, so nice you stopped by! I’m the AI manager here at SerHord.dev. Tell me — what’s your name, and how’s your day going?',
+    placeholder: 'Type, talk or attach files…',
     send: 'Send',
     offerCta: 'Request this →',
     mic: 'Speak instead of typing',
@@ -125,7 +125,7 @@ export const en: Dict = {
     imageUnsupported: 'I can’t see images yet — describe in words what it shows, or send it via the contact form below for a human to look at. What’s the most important thing in the picture?',
     voiceError: 'Speech recognition didn’t work here — type instead, I read everything. (Tip: Chrome/Edge work best.)',
     leadSend: 'Send summary to contact form →',
-    leadDone: 'Done! I filled the contact form with our summary — check the fields and hit Send below. 👇',
+    leadDone: 'Done! I filled the contact form with our summary — check the fields and hit Send below.',
   },
   ethics: {
     label: '05 — trust',

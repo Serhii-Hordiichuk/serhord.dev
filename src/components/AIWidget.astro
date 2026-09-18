@@ -13,9 +13,9 @@ const ai = (t as any).ai;
   <button
     id="ai-fab"
     aria-label="Open AI manager"
-    class="fixed bottom-5 right-5 z-[60] grid h-14 w-14 place-items-center rounded-full bg-[#101d2e] text-2xl text-[var(--color-lime)] shadow-[4px_4px_0_0_var(--color-accent)] transition hover:-translate-y-0.5"
+    class="fixed bottom-5 right-5 z-[60] grid h-14 w-14 place-items-center rounded-full bg-[#101d2e] text-[var(--color-lime)] shadow-[4px_4px_0_0_var(--color-accent)] transition hover:-translate-y-0.5"
   >
-    ✦
+    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1L3 20l1.2-4.3A8.5 8.5 0 1 1 21 11.5z"/></svg>
     <span id="ai-dot" class="absolute -right-0.5 -top-0.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-500"></span>
   </button>
 
@@ -29,15 +29,15 @@ const ai = (t as any).ai;
   >
     <header class="flex shrink-0 items-center justify-between bg-[#101d2e] px-4 py-3 text-white">
       <div class="flex items-center gap-2.5">
-        <span class="grid h-8 w-8 place-items-center rounded-full bg-[var(--color-lime)] text-black">✦</span>
+        <span class="grid h-8 w-8 place-items-center rounded-full bg-[var(--color-lime)] text-black"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-3-.4-4.2-1L3 20l1.2-4.3A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
         <div>
           <p class="text-sm font-bold leading-none">{ai.name}</p>
         </div>
       </div>
-      <button id="ai-close" class="rounded-full px-2 py-1 text-white/70 hover:bg-white/10 hover:text-white">✕</button>
+      <button id="ai-close" aria-label="Close" class="grid h-8 w-8 place-items-center rounded-full text-white/70 hover:bg-white/10 hover:text-white"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </header>
 
-    <div id="ai-messages" class="min-h-0 flex-1 space-y-2.5 overflow-y-auto bg-[var(--color-paper)] p-4 text-sm"></div>
+    <div id="ai-messages" class="min-h-0 flex-1 space-y-2.5 overflow-y-auto overscroll-contain bg-[var(--color-paper)] p-4 text-sm"></div>
 
     <div id="ai-files" class="hidden shrink-0 flex-wrap gap-1.5 bg-white px-3 pt-2 dark:bg-night"></div>
 
@@ -53,9 +53,9 @@ const ai = (t as any).ai;
         <label
           id="ai-attach-label"
           title={ai.attach}
-          class="absolute right-10 top-1/2 grid h-8 w-8 -translate-y-1/2 cursor-pointer place-items-center rounded-full text-base opacity-70 hover:bg-[var(--color-cream)] hover:opacity-100"
+          class="absolute right-10 top-1/2 grid h-8 w-8 -translate-y-1/2 cursor-pointer place-items-center rounded-full opacity-70 hover:bg-[var(--color-cream)] hover:opacity-100"
         >
-          📎
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5l-8.5 8.5a5.5 5.5 0 0 1-7.8-7.8L12 5a3.7 3.7 0 0 1 5.2 5.2l-7.3 7.3a1.85 1.85 0 0 1-2.6-2.6L14 8"/></svg>
           <input
             id="ai-file"
             type="file"
@@ -68,9 +68,9 @@ const ai = (t as any).ai;
           id="ai-mic"
           type="button"
           title={ai.mic}
-          class="absolute right-1.5 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-base opacity-70 hover:bg-[var(--color-cream)] hover:opacity-100"
+          class="absolute right-1.5 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full opacity-70 hover:bg-[var(--color-cream)] hover:opacity-100"
         >
-          🎙️
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/></svg>
         </button>
       </div>
       <button class="shrink-0 rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-bold text-white hover:bg-[var(--color-accent-dark)]">
@@ -130,20 +130,20 @@ const ai = (t as any).ai;
 
   function localBrain(q) {
     const s = q.toLowerCase();
-    const CTA = `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">👉 ${aiDict.offerCta}</a>`;
+    const CTA = `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">→ ${aiDict.offerCta}</a>`;
     const has = (...ws) => ws.some((w) => s.includes(w));
     if (has('virus', 'treg', 'slow', 'malware', 'antivirus')) return (PAGE_LANG === 'no'
-      ? `🛡️ <b>Virus-rens fra 990 kr:</b> rens + antivirus + nettleser/e-post-herding + 2FA. Tar 1–2 dager, du får logg over alt som ble fjernet. <b>Uimotståelig:</b> rens + OS-helsesjekk + backup-oppsett i samme slengen — si ifra så reserverer jeg tid i morgen.`
-      : `🛡️ <b>Malware cleanup from NOK 990:</b> cleanup + antivirus + browser/email hardening + 2FA. 1–2 days with a removal log. <b>Deal:</b> cleanup + health check + backup setup together — I can start tomorrow.`) + CTA;
+      ? `<b>Virus-rens fra 990 kr:</b> rens + antivirus + nettleser/e-post-herding + 2FA. Tar 1–2 dager, du får logg over alt som ble fjernet. <b>Uimotståelig:</b> rens + OS-helsesjekk + backup-oppsett i samme slengen — si ifra så reserverer jeg tid i morgen.`
+      : `<b>Malware cleanup from NOK 990:</b> cleanup + antivirus + browser/email hardening + 2FA. 1–2 days with a removal log. <b>Deal:</b> cleanup + health check + backup setup together — I can start tomorrow.`) + CTA;
     if (has('windows', 'linux', 'chromeos', 'chrome os', 'install', 'installer', 'ubuntu', 'mint')) return (PAGE_LANG === 'no'
-      ? `💽 <b>OS-install fra 790 kr:</b> Windows, Ubuntu/Mint eller ChromeOS Flex — drivere, norsk språk, printer og WiFi ferdig. Tar med backup av filene dine først. <b>Bonus:</b> SSD-sjekk gratis under install.`
-      : `💽 <b>OS install from NOK 790:</b> Windows, Ubuntu/Mint or ChromeOS Flex — drivers, language, printer & WiFi ready. Files backed up first. <b>Bonus:</b> free SSD health check during install.`) + CTA;
+      ? `<b>OS-install fra 790 kr:</b> Windows, Ubuntu/Mint eller ChromeOS Flex — drivere, norsk språk, printer og WiFi ferdig. Tar med backup av filene dine først. <b>Bonus:</b> SSD-sjekk gratis under install.`
+      : `<b>OS install from NOK 790:</b> Windows, Ubuntu/Mint or ChromeOS Flex — drivers, language, printer & WiFi ready. Files backed up first. <b>Bonus:</b> free SSD health check during install.`) + CTA;
     if (has('ssd', 'ram', 'skjerm', 'batteri', 'repair', 'reparasjon', 'screen', 'battery', 'vifte', 'kjøling')) return (PAGE_LANG === 'no'
-      ? `🔧 <b>Reparasjon:</b> SSD/RAM-oppgradering (vanligvis 1500–3500 kr inkl. deler), skjerm/batteri etter modell. Du får fastpris FØR jeg skrur. Send modellnavn så sjekker jeg deler i dag.`
-      : `🔧 <b>Repair:</b> SSD/RAM upgrade (typically NOK 1500–3500 incl. parts), screen/battery per model. Fixed quote BEFORE I open it. Send the model name and I'll check parts today.`) + CTA;
+      ? `<b>Reparasjon:</b> SSD/RAM-oppgradering (vanligvis 1500–3500 kr inkl. deler), skjerm/batteri etter modell. Du får fastpris FØR jeg skrur. Send modellnavn så sjekker jeg deler i dag.`
+      : `<b>Repair:</b> SSD/RAM upgrade (typically NOK 1500–3500 incl. parts), screen/battery per model. Fixed quote BEFORE I open it. Send the model name and I'll check parts today.`) + CTA;
     if (has('server', 'nas', 'nextcloud', 'vpn', 'lokal', 'lagring', 'backup')) return (PAGE_LANG === 'no'
-      ? `🗄️ <b>Lokal server/NAS:</b> Nextcloud + backup 3-2-1 + VPN — familien eller kontoret eier dataene selv, ingen månedsavgift til USA-skyer. Fra ca. 6900 kr inkl. oppsett.`
-      : `🗄️ <b>Local server/NAS:</b> Nextcloud + 3-2-1 backup + VPN — you own the data, no US-cloud monthly fee. From ~NOK 6900 incl. setup.`) + CTA;
+      ? `<b>Lokal server/NAS:</b> Nextcloud + backup 3-2-1 + VPN — familien eller kontoret eier dataene selv, ingen månedsavgift til USA-skyer. Fra ca. 6900 kr inkl. oppsett.`
+      : `<b>Local server/NAS:</b> Nextcloud + 3-2-1 backup + VPN — you own the data, no US-cloud monthly fee. From ~NOK 6900 incl. setup.`) + CTA;
     if (has('nettside', 'website', 'nettbutikk', 'landing', 'side', 'seo')) return (PAGE_LANG === 'no'
       ? `◧ <b>Nettside:</b> Start fra 5900 kr (7–10 dager) eller Business OS fra 17900 kr (side + booking + e-post + drift + KI). 90+ Lighthouse, du eier domene og kode. <b>Foreslår:</b> gratis 15-min intro i dag → fastpris i morgen.`
       : `◧ <b>Website:</b> Start from NOK 5900 (7–10 days) or Business OS from NOK 17900 (site + booking + email + ops + AI). 90+ Lighthouse, you own domain & code. <b>Suggest:</b> free 15-min intro today → fixed quote tomorrow.`) + CTA;
@@ -154,8 +154,8 @@ const ai = (t as any).ai;
       ? `◎ <b>Sikkerhetssjekk fra 2900 kr:</b> lekkasje/passord, OWASP Top-10 nettside-sjekk, personvern-opprydding (trackere, 2FA, backup). Kun lovlig: åpne kilder + ditt samtykke, skriftlig rapport med fiks.`
       : `◎ <b>Security check from NOK 2900:</b> leak/password, OWASP Top-10 site check, privacy cleanup (trackers, 2FA, backup). Legal only: open sources + your consent, written fix report.`) + CTA;
     if (has('pris', 'price', 'kost', 'cost', 'koster')) return (PAGE_LANG === 'no'
-      ? `💰 <b>Faste priser:</b> Start 5900 kr • Business OS 17900 kr • Care 990 kr/mnd • OSINT 2900 kr • virus-rens 990 kr • OS-install 790 kr. Alt eks. mva, skriftlig tilbud, ingen binding. Hva passer best for deg?`
-      : `💰 <b>Fixed prices (NOK):</b> Start 5900 • Business OS 17900 • Care 990/mo • OSINT 2900 • cleanup 990 • OS install 790. Written quote, no lock-in. Which fits you?`) + CTA;
+      ? `<b>Faste priser:</b> Start 5900 kr • Business OS 17900 kr • Care 990 kr/mnd • OSINT 2900 kr • virus-rens 990 kr • OS-install 790 kr. Alt eks. mva, skriftlig tilbud, ingen binding. Hva passer best for deg?`
+      : `<b>Fixed prices (NOK):</b> Start 5900 • Business OS 17900 • Care 990/mo • OSINT 2900 • cleanup 990 • OS install 790. Written quote, no lock-in. Which fits you?`) + CTA;
     if (has('hei', 'hallo', 'hello', 'hi', 'hjelp', 'help')) return (PAGE_LANG === 'no'
       ? `Hei! Si kort hva som plager deg — treg PC, nettside, e-post, sikkerhet? Jeg svarer med konkret pakke + fastpris med en gang.`
       : `Hi! Briefly say what bothers you — slow PC, website, email, security? I'll reply with a concrete package + fixed price right away.`);
@@ -168,8 +168,8 @@ const ai = (t as any).ai;
     let fallback = localBrain(q);
     if (files && files.length) {
       fallback += `<br><br>${esc(PAGE_LANG === 'no'
-        ? '⚠️ Vedleggene dine ser jeg først når nett-manageren er på nett — ta dem med i kontaktskjemaet under, så leser vi alt før intro-møtet.'
-        : '⚠️ I’ll see your attachments once the online manager is back — include them in the contact form below and we’ll read everything before the intro call.')}`;
+        ? 'NB: Vedleggene dine ser jeg først når nett-manageren er på nett — ta dem med i kontaktskjemaet under, så leser vi alt før intro-møtet.'
+        : 'NB: I’ll see your attachments once the online manager is back — include them in the contact form below and we’ll read everything before the intro call.')}`;
     }
     return fallback;
   }
@@ -218,7 +218,7 @@ const ai = (t as any).ai;
       leadBtn?.classList.remove('hidden');
       // CTA-посилання — тільки з другої відповіді; перша завжди чисте знайомство
       el.innerHTML = aiReplies > 1
-        ? esc(full) + `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">👉 ${aiDict.offerCta}</a>`
+        ? esc(full) + `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">→ ${aiDict.offerCta}</a>`
         : esc(full);
     } catch (e) {
       if (full.trim()) {
@@ -237,7 +237,7 @@ const ai = (t as any).ai;
   async function sendUserMessage(q, files) {
     open();
     const shown = files && files.length
-      ? `${esc(q)}<br><span style="font-size:12px;opacity:.8">📎 ${files.map((f) => esc(f.name)).join(', ')}</span>`
+      ? `${esc(q)}<br><span style="font-size:12px;opacity:.8">▣ ${files.map((f) => esc(f.name)).join(', ')}</span>`
       : esc(q);
     bubble('me', shown || '…');
     const t = bubble('ai', '…');
@@ -260,7 +260,7 @@ const ai = (t as any).ai;
       chip.className = 'inline-flex max-w-full items-center gap-1 rounded-full border border-[var(--color-line)] bg-[var(--color-paper)] px-2.5 py-1 font-mono text-[11px]';
       const label = document.createElement('span');
       label.className = 'truncate';
-      label.textContent = `📎 ${f.name}`;
+      label.textContent = `▣ ${f.name}`;
       const x = document.createElement('button');
       x.type = 'button';
       x.title = aiDict.removeFile;
@@ -380,6 +380,7 @@ const ai = (t as any).ai;
   function open() {
     panel.classList.remove('hidden');
     panel.classList.add('flex');
+    lockPageScroll();
     tip.classList.add('hidden');
     if (!opened) {
       opened = true;
@@ -390,6 +391,17 @@ const ai = (t as any).ai;
   function closePanel() {
     panel.classList.add('hidden');
     panel.classList.remove('flex');
+    unlockPageScroll();
+  }
+  // Поки діалог відкритий — взаємодія тільки з ним: фон не скролиться
+  // (на мобайлі фон під повноекранним чатом інакше "їде" і ламає верстку).
+  function lockPageScroll() {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+  }
+  function unlockPageScroll() {
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }
   // Поле вводу завжди видно над мобільною клавіатурою:
   // на вузьких екранах підганяємо висоту панелі під видиму область.

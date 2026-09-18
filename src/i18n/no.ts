@@ -109,8 +109,8 @@ export const no = {
   },
   ai: {
     name: 'Serhord AI-manager',
-    greet: 'Hei, så hyggelig at du stakk innom! 😊 Jeg er AI-manageren her på SerHord.dev. Si meg — hva heter du, og hvordan har du dagen din i dag?',
-    placeholder: 'Skriv, snakk 🎙️ eller legg ved filer 📎…',
+    greet: 'Hei, så hyggelig at du stakk innom! Jeg er AI-manageren her på SerHord.dev. Si meg — hva heter du, og hvordan har du dagen din i dag?',
+    placeholder: 'Skriv, snakk eller legg ved filer…',
     send: 'Send',
     offerCta: 'Be om dette →',
     mic: 'Snakk i stedet for å skrive',
@@ -123,7 +123,7 @@ export const no = {
     imageUnsupported: 'Bilder kan jeg ikke se ennå — beskriv med ord hva det viser, eller send det via kontaktskjemaet under, så ser et menneske på det. Hva er det viktigste på bildet?',
     voiceError: 'Fikk ikke til talegjenkjenning her — skriv i stedet, jeg leser alt. (Tips: Chrome/Edge fungerer best.)',
     leadSend: 'Send sammendrag til kontaktskjema →',
-    leadDone: 'Klar! Jeg fylte kontaktskjemaet med sammendraget vårt — sjekk feltene og trykk Send der nede. 👇',
+    leadDone: 'Klar! Jeg fylte kontaktskjemaet med sammendraget vårt — sjekk feltene og trykk Send der nede.',
   },
   ethics: {
     label: '05 — tillit',
