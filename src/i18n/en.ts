@@ -99,7 +99,6 @@ export const en: Dict = {
       { name: 'Business OS', price: 'from €1,490', desc: 'Site + ops + AI. Most popular.', feats: ['Everything in Start', 'Booking / Cal + email', 'Server + backup + monitor', 'AI assistant on your data'], cta: 'Ask for Business OS', popular: true },
       { name: 'Care', price: '€79/mo', desc: 'Sleep well. I watch it.', feats: ['Updates', 'Backup checks', 'Small tweaks 1h/mo', 'Cancel monthly'], cta: 'Ask for Care' },
     ],
-    note: 'Something else? OSINT/security check from €240, malware cleanup from €80, OS install from €65. Just ask — I answer honestly.',
     extraTitle: 'Fixed price on small jobs — same honest style.',
     extras: [
       { name: 'OSINT / security check', price: 'from €240', desc: 'Leak + OWASP check + privacy report with fix.' },
@@ -160,10 +159,15 @@ export const en: Dict = {
     calTitle: 'Or book directly',
     calNote: '15 min intro — no strings. Pick a time, get a link by email.',
     calCta: 'Open calendar',
+    direct: 'Direct',
+    phone: '+47 96 68 92 37',
+    area: 'Møre og Romsdal, Norway — happy to visit you',
     success: 'Thanks! Message is ready — connect a Formspree/Resend key to activate sending.',
   },
   footer: {
     tagline: 'Calm IT for small business. Built honestly, operated responsibly.',
+    phone: '+47 96 68 92 37',
+    area: 'Møre og Romsdal, Norway',
     rights: '© 2026 SerHord.dev — Org.no coming. Privacy: we collect minimal data.',
     stack: 'Built with Astro • Hosted on Vercel • Protected by Cloudflare',
   },

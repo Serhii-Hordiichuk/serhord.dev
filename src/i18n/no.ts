@@ -97,7 +97,6 @@ export const no = {
       { name: 'Business OS', price: 'fra 17 900 kr', desc: 'Nettside + drift + KI. Mest valgt.', feats: ['Alt i Start', 'Booking / Cal + e-post', 'Server + backup + monitor', 'KI-assistent på dine data'], cta: 'Be om Business OS', popular: true },
       { name: 'Care', price: '990 kr/mnd', desc: 'Sov godt. Jeg passer på.', feats: ['Oppdateringer', 'Backup-kontroll', 'Småendringer 1 t/mnd', 'Oppsigbar månedlig'], cta: 'Be om Care' },
     ],
-    note: 'Trenger noe annet? OSINT/sikkerhetssjekk fra 2 900 kr, virus-rens fra 990 kr, OS-install fra 790 kr. Spør — jeg svarer ærlig.',
     extraTitle: 'Fastpris på småjobber — samme ærlige stil.',
     extras: [
       { name: 'OSINT / sikkerhetssjekk', price: 'fra 2 900 kr', desc: 'Lekkasje + OWASP-sjekk + personvern-rapport med fiks.' },
@@ -158,10 +157,15 @@ export const no = {
     calTitle: 'Eller book direkte',
     calNote: '15 min intro — uforpliktende. Velg tid, få lenke på e-post.',
     calCta: 'Åpne kalender',
+    direct: 'Direkte',
+    phone: '+47 96 68 92 37',
+    area: 'Møre og Romsdal — kommer gjerne på besøk hos deg',
     success: 'Takk! Meldingen er klar til sending — koble Formspree/Resend-nøkkel for å aktivere.',
   },
   footer: {
     tagline: 'Rolig IT for små bedrifter. Bygd ærlig, driftet ansvarlig.',
+    phone: '+47 96 68 92 37',
+    area: 'Møre og Romsdal, Norge',
     rights: '© 2026 SerHord.dev — Org.nr. kommer. Personvern: vi samler minimalt.',
     stack: 'Bygd med Astro • Hostet på Vercel • Beskyttet av Cloudflare',
   },

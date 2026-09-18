@@ -14,6 +14,10 @@ const { t, lang } = Astro.props;
       <div>
         <p class="font-mono text-lg">serhord<span class="text-[var(--color-accent)]">.dev_</span></p>
         <p class="mt-2 max-w-sm text-sm text-[var(--color-ink-soft)]">{t.footer.tagline}</p>
+        <p class="mt-3 text-sm font-semibold">
+          <a href="tel:+4796689237" class="hover:underline">✆ {(t.footer as any).phone}</a>
+          <span class="font-normal text-[var(--color-ink-soft)]"> · {(t.footer as any).area}</span>
+        </p>
       </div>
       <nav class="flex gap-4 text-sm">
         <a href={`/${lang}/`} class="hover:underline">↑ top</a>
