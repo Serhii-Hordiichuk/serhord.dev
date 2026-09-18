@@ -28,7 +28,7 @@ const { t } = Astro.props;
         </a>
         <a
           href="#services"
-          class="rounded-full border border-[var(--color-ink)] px-6 py-3 text-[15px] font-semibold hover:bg-[var(--color-ink)] hover:text-white"
+          class="rounded-full border border-[var(--color-ink)] px-6 py-3 text-[15px] font-semibold hover:bg-[var(--color-ink)] hover:text-white dark:hover:bg-white dark:hover:text-black"
         >
           {t.hero.ctaSecondary}
         </a>
@@ -44,7 +44,7 @@ const { t } = Astro.props;
     </div>
 
     <div class="reveal" style="animation-delay: 0.15s">
-      <div class="overflow-hidden rounded-2xl border border-[var(--color-ink)] bg-white shadow-[8px_8px_0_0_var(--color-ink)]">
+      <div class="overflow-hidden rounded-2xl border border-[var(--color-ink)] bg-white shadow-[8px_8px_0_0_var(--color-ink)] dark:bg-night">
         <div class="flex items-center gap-2 border-b border-[var(--color-line)] bg-[var(--color-cream)] px-4 py-2.5">
           <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
           <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
@@ -58,7 +58,7 @@ const { t } = Astro.props;
           <p>✓ headers <span class="text-gray-400">— CSP / HSTS on</span></p>
           <p class="text-lime-200">→ ready for small business_</p>
         </div>
-        <div class="grid grid-cols-3 divide-x divide-[var(--color-line)] bg-white text-center">
+        <div class="grid grid-cols-3 divide-x divide-[var(--color-line)] bg-white text-center dark:bg-night">
           <div class="px-2 py-3 text-xs font-semibold">{t.hero.proof1}</div>
           <div class="px-2 py-3 text-xs font-semibold">{t.hero.proof2}</div>
           <div class="px-2 py-3 text-xs font-semibold">{t.hero.proof3}</div>

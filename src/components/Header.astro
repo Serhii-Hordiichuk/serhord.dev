@@ -22,19 +22,58 @@ const other = lang === 'no' ? 'en' : 'no';
       <a href="#faq" class="hover:text-black">{t.nav.faq}</a>
     </nav>
     <div class="flex items-center gap-2">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="grid h-8 w-8 place-items-center rounded-full border border-[var(--color-line)] text-base hover:border-black"
+        aria-label={t.nav.theme}
+        title={t.nav.theme}
+      >
+        <span id="theme-icon-moon">🌙</span>
+        <span id="theme-icon-sun" class="hidden">☀️</span>
+      </button>
       <a
         href={`/${other}/`}
-        class="rounded-full border border-[var(--color-line)] px-3 py-1.5 font-mono text-xs uppercase hover:border-black"
+        class="lang-switch rounded-full border border-[var(--color-line)] px-3 py-1.5 font-mono text-xs uppercase hover:border-black"
         aria-label="Switch language"
       >
         {other}
       </a>
       <a
         href="#contact"
-        class="rounded-full bg-[var(--color-ink)] px-4 py-1.5 text-sm font-medium text-white hover:bg-black"
+        class="rounded-full bg-[var(--color-ink)] px-4 py-1.5 text-sm font-medium text-white hover:bg-black dark:bg-[var(--color-lime)] dark:text-black dark:hover:bg-white"
       >
         {t.nav.cta}
       </a>
     </div>
   </div>
 </header>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('theme-toggle');
+    const sun = document.getElementById('theme-icon-sun');
+    const moon = document.getElementById('theme-icon-moon');
+    function sync() {
+      const dark = document.documentElement.classList.contains('dark');
+      sun?.classList.toggle('hidden', !dark);
+      moon?.classList.toggle('hidden', dark);
+    }
+    btn?.addEventListener('click', () => {
+      const dark = document.documentElement.classList.toggle('dark');
+      try {
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+      } catch (e) {}
+      sync();
+    });
+    try {
+      if (!localStorage.getItem('theme')) {
+        matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          document.documentElement.classList.toggle('dark', e.matches);
+          sync();
+        });
+      }
+    } catch (e) {}
+    sync();
+  })();
+</script>

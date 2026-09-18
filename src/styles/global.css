@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-display: "Fraunces", Georgia, serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
@@ -15,6 +17,20 @@
   --color-accent-dark: #0a5c38;
   --color-lime: #d9f99d;
   --color-amber-soft: #fef3c7;
+  --color-night: #0e1729;
+  --color-night-soft: #182642;
+}
+
+/* Темна тема: перемикається класом .dark на <html> (тогл у хедері,
+   за замовчуванням — з prefers-color-scheme пристрою). */
+.dark {
+  --color-paper: #0a1120;
+  --color-cream: #0f1830;
+  --color-ink: #edf3fb;
+  --color-ink-soft: #b7c4da;
+  --color-muted: #7f8fb0;
+  --color-line: #223252;
+  color-scheme: dark;
 }
 
 html {
@@ -41,6 +57,19 @@ body {
     linear-gradient(to bottom, rgba(16, 29, 46, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
   mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 40%, transparent 100%);
+}
+.dark .paper-grid {
+  background-image:
+    linear-gradient(to right, rgba(237, 243, 251, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(237, 243, 251, 0.06) 1px, transparent 1px);
+}
+
+/* хедер: у темній темі hover має ставати світлим, а не чорним */
+.dark header nav a:hover {
+  color: #fff;
+}
+.dark header .lang-switch:hover {
+  border-color: #fff;
 }
 
 .card-hover {

@@ -16,6 +16,7 @@ export const en: Dict = {
     about: 'About',
     faq: 'FAQ',
     cta: 'Book intro',
+    theme: 'Toggle light/dark theme',
   },
   hero: {
     eyebrow: '~/ individuals & small business — 1–20 people',

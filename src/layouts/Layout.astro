@@ -23,6 +23,16 @@ const { title, description, lang, locale } = Astro.props;
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={locale} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f5" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a1120" />
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

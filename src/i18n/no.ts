@@ -14,6 +14,7 @@ export const no = {
     about: 'Om meg',
     faq: 'FAQ',
     cta: 'Book intro',
+    theme: 'Bytt lyst/mørkt tema',
   },
   hero: {
     eyebrow: '~/ privatpersoner & små bedrifter — 1–20 ansatte',
