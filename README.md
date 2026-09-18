@@ -27,10 +27,17 @@ Routes: `/no/` (default), `/en/`, `/` redirects to `/no/`.
 | `PUBLIC_CAL_LINK` | Vercel env | Cal.com booking link |
 | `PUBLIC_FORMSPOREE_ID` | Vercel env | `xxxxx` from formspree.io — without it form shows success-note (demo mode) |
 | `PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare → Vercel env | Turnstile widget |
-| `PUBLIC_OPENROUTER_MODEL` | Vercel env | e.g. `openai/gpt-4o-mini`, `anthropic/claude-3.5-haiku` (public default, safe) |
 | `OPENROUTER_API_KEY` | OpenRouter → Vercel env (**Sensitive, без `PUBLIC_`!**) | AI-manager brain, тільки сервер `/api/chat`; без нього віджет відповідає локально (fallback) |
-| `OPENROUTER_MODEL` | Vercel env (server) | e.g. `openai/gpt-4o-mini` — дефолт для `/api/chat` |
+| `OPENROUTER_MODEL` | Vercel env (server) | pinned `nvidia/nemotron-3-ultra-550b-a55b:free`, no fallbacks (owner has exclusive tester access) |
 | `OPENROUTER_SITE_URL` | Vercel env (server) | `https://serhord.dev` for OpenRouter rankings |
+
+## AI-manager widget
+
+- Brain: Nemotron 3 Ultra (text) via `/api/chat`; key never reaches the browser.
+- Voice input: Web Speech API (free, Chrome/Edge best), auto-hidden where unsupported.
+- Attachments: text/code files (≤100 KB, ≤3) read locally and sent as context; pasted URLs fetched server-side (≤2, stripped, capped); images politely declined (model is text-only) with guidance.
+- Lead handoff: after first AI reply a button prefills `#contact` with the dialogue summary.
+- Abuse guards: per-IP rate limit (10 req/min), size caps, 12-message history.
 
 ## Deploy GitHub → Vercel → Cloudflare
 

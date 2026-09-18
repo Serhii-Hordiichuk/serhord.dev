@@ -7,11 +7,9 @@ interface Props {
 }
 const { t, lang } = Astro.props;
 const ai = (t as any).ai;
-
-const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-4o-mini';
 ---
 
-<div id="ai-widget" data-lang={lang} data-model={OPENROUTER_MODEL}>
+<div id="ai-widget" data-lang={lang}>
   <button
     id="ai-fab"
     aria-label="Open AI manager"
@@ -27,7 +25,7 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
 
   <section
     id="ai-panel"
-    class="fixed bottom-5 right-5 z-[61] hidden w-[min(380px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[var(--color-ink)] bg-white shadow-[8px_8px_0_0_var(--color-ink)]"
+    class="fixed bottom-5 right-5 z-[61] hidden w-[min(400px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[var(--color-ink)] bg-white shadow-[8px_8px_0_0_var(--color-ink)]"
   >
     <header class="flex items-center justify-between bg-[var(--color-ink)] px-4 py-3 text-white">
       <div class="flex items-center gap-2.5">
@@ -35,7 +33,7 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
         <div>
           <p class="text-sm font-bold leading-none">{ai.name}</p>
           <p class="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-green-300">
-            <span class="inline-block h-1.5 w-1.5 rounded-full bg-green-400"></span>{ai.online} · OpenRouter
+            <span class="inline-block h-1.5 w-1.5 rounded-full bg-green-400"></span>{ai.online} · Nemotron 3 Ultra
           </p>
         </div>
       </div>
@@ -52,7 +50,31 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
       ))}
     </div>
 
-    <form id="ai-form" class="flex gap-2 bg-white p-3">
+    <div id="ai-files" class="hidden flex-wrap gap-1.5 bg-white px-3 pt-2"></div>
+
+    <form id="ai-form" class="flex items-center gap-1.5 bg-white p-3">
+      <label
+        id="ai-attach-label"
+        title={ai.attach}
+        class="grid h-9 w-9 shrink-0 cursor-pointer place-items-center rounded-full border border-[var(--color-line)] text-base hover:border-black hover:bg-[var(--color-lime)]"
+      >
+        📎
+        <input
+          id="ai-file"
+          type="file"
+          multiple
+          class="hidden"
+          accept=".txt,.md,.markdown,.csv,.json,.js,.ts,.tsx,.jsx,.html,.css,.pdf,.log,.xml,.yml,.yaml,text/*,image/*"
+        />
+      </label>
+      <button
+        id="ai-mic"
+        type="button"
+        title={ai.mic}
+        class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[var(--color-line)] text-base hover:border-black hover:bg-[var(--color-lime)]"
+      >
+        🎙️
+      </button>
       <input
         id="ai-input"
         autocomplete="off"
@@ -63,11 +85,19 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
         {ai.send}
       </button>
     </form>
-    <p class="bg-white px-4 pb-2.5 font-mono text-[10px] text-[var(--color-muted)]">{ai.note}</p>
+    <div class="bg-white px-3 pb-1">
+      <button
+        id="ai-lead"
+        class="hidden w-full rounded-full border border-[var(--color-ink)] bg-[var(--color-lime)] px-4 py-2 text-xs font-bold text-black hover:bg-white"
+      >
+        {ai.leadSend}
+      </button>
+    </div>
+    <p class="bg-white px-4 pb-2.5 pt-1 font-mono text-[10px] text-[var(--color-muted)]">{ai.note}</p>
   </section>
 </div>
 
-<script define:vars={{ uiGreet: ai.greet }}>
+<script define:vars={{ aiDict: ai }}>
   const root = document.getElementById('ai-widget');
   const fab = document.getElementById('ai-fab');
   const panel = document.getElementById('ai-panel');
@@ -76,11 +106,18 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
   const box = document.getElementById('ai-messages');
   const form = document.getElementById('ai-form');
   const input = document.getElementById('ai-input');
+  const micBtn = document.getElementById('ai-mic');
+  const fileInput = document.getElementById('ai-file');
+  const filesBar = document.getElementById('ai-files');
+  const leadBtn = document.getElementById('ai-lead');
 
-  const model = root?.dataset.model || 'openai/gpt-4o-mini';
   const PAGE_LANG = root?.dataset.lang || 'no';
 
   const history = [];
+  let pendingFiles = [];
+  let aiReplies = 0;
+  const MAX_FILES = 3;
+  const MAX_FILE_BYTES = 100 * 1024;
 
   function bubble(who, text) {
     const wrap = document.createElement('div');
@@ -102,7 +139,7 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
 
   function localBrain(q) {
     const s = q.toLowerCase();
-    const CTA = `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">👉 ${PAGE_LANG === 'no' ? 'Be om dette' : 'Request this'} →</a>`;
+    const CTA = `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">👉 ${aiDict.offerCta}</a>`;
     const has = (...ws) => ws.some((w) => s.includes(w));
     if (has('virus', 'treg', 'slow', 'malware', 'antivirus')) return (PAGE_LANG === 'no'
       ? `🛡️ <b>Virus-rens fra 990 kr:</b> rens + antivirus + nettleser/e-post-herding + 2FA. Tar 1–2 dager, du får logg over alt som ble fjernet. <b>Uimotståelig:</b> rens + OS-helsesjekk + backup-oppsett i samme slengen — si ifra så reserverer jeg tid i morgen.`
@@ -136,7 +173,7 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
       : `Got it! To give you the <b>best offer right away</b>: is it (1) PC/server, (2) website, (3) AI or (4) security/privacy? Reply with one number — I'll send package + price + slot.`);
   }
 
-  async function askAI(q) {
+  async function askAI(q, files) {
     history.push({ role: 'user', content: q });
     try {
       const res = await fetch('/api/chat', {
@@ -144,18 +181,169 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ messages: history.slice(-12), lang: PAGE_LANG, model }),
+        body: JSON.stringify({ messages: history.slice(-12), lang: PAGE_LANG, attachments: files }),
       });
       if (!res.ok) throw new Error('chat ' + res.status);
       const data = await res.json();
       const text = data.text || '';
       if (!text) throw new Error('empty');
       history.push({ role: 'assistant', content: text });
-      return esc(text) + `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">👉 ${PAGE_LANG === 'no' ? 'Be om dette' : 'Request this'} →</a>`;
+      aiReplies += 1;
+      leadBtn?.classList.remove('hidden');
+      return esc(text) + `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">👉 ${aiDict.offerCta}</a>`;
     } catch (e) {
-      return localBrain(q);
+      let fallback = localBrain(q);
+      if (files && files.length) {
+        fallback += `<br><br>${esc(PAGE_LANG === 'no'
+          ? '⚠️ Vedleggene dine ser jeg først når nett-manageren er på nett — ta dem med i kontaktskjemaet under, så leser vi alt før intro-møtet.'
+          : '⚠️ I’ll see your attachments once the online manager is back — include them in the contact form below and we’ll read everything before the intro call.')}`;
+      }
+      return fallback;
     }
   }
+
+  async function sendUserMessage(q, files) {
+    open();
+    const shown = files && files.length
+      ? `${esc(q)}<br><span style="font-size:12px;opacity:.8">📎 ${files.map((f) => esc(f.name)).join(', ')}</span>`
+      : esc(q);
+    bubble('me', shown || '…');
+    const t = bubble('ai', '…');
+    t.innerHTML = await askAI(q, files || []);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  // ---- Attachments: текст/код читаємо локально, картинки — ввічливе «ні» ----
+  function renderFileChips() {
+    if (!pendingFiles.length) {
+      filesBar.classList.add('hidden');
+      filesBar.classList.remove('flex');
+      filesBar.innerHTML = '';
+      return;
+    }
+    filesBar.classList.remove('hidden');
+    filesBar.classList.add('flex');
+    filesBar.innerHTML = '';
+    pendingFiles.forEach((f, i) => {
+      const chip = document.createElement('span');
+      chip.className = 'inline-flex max-w-full items-center gap-1 rounded-full border border-[var(--color-line)] bg-[var(--color-paper)] px-2.5 py-1 font-mono text-[11px]';
+      const label = document.createElement('span');
+      label.className = 'truncate';
+      label.textContent = `📎 ${f.name}`;
+      const x = document.createElement('button');
+      x.type = 'button';
+      x.title = aiDict.removeFile;
+      x.textContent = '✕';
+      x.className = 'font-bold hover:text-red-600';
+      x.addEventListener('click', () => {
+        pendingFiles.splice(i, 1);
+        renderFileChips();
+      });
+      chip.appendChild(label);
+      chip.appendChild(x);
+      filesBar.appendChild(chip);
+    });
+  }
+
+  fileInput?.addEventListener('change', async () => {
+    const picked = Array.from(fileInput.files || []);
+    fileInput.value = '';
+    for (const file of picked) {
+      if (pendingFiles.length >= MAX_FILES) break;
+      if (/^image\//.test(file.type) || /\.(png|jpe?g|gif|webp|bmp|svg|heic)$/i.test(file.name)) {
+        open();
+        bubble('ai', esc(aiDict.imageUnsupported));
+        continue;
+      }
+      if (file.size > MAX_FILE_BYTES) {
+        open();
+        bubble('ai', esc(aiDict.fileTooBig));
+        continue;
+      }
+      try {
+        const text = (await file.text()).slice(0, 30000);
+        if (!text.trim()) throw new Error('empty');
+        pendingFiles.push({ name: file.name, text });
+      } catch {
+        open();
+        bubble('ai', esc(aiDict.fileUnreadable));
+      }
+    }
+    renderFileChips();
+    if (pendingFiles.length) open();
+    setTimeout(() => input?.focus(), 50);
+  });
+
+  // ---- Voice: Web Speech API (безкоштовно, вбудовано в браузер) ----
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let recog = null;
+  let listening = false;
+  if (!SR) {
+    micBtn.style.display = 'none';
+  } else {
+    micBtn?.addEventListener('click', () => {
+      if (listening && recog) {
+        recog.stop();
+        return;
+      }
+      try {
+        recog = new SR();
+        recog.lang = PAGE_LANG === 'no' ? 'nb-NO' : 'en-US';
+        recog.interimResults = true;
+        recog.maxAlternatives = 1;
+        let base = input.value ? input.value + ' ' : '';
+        recog.onresult = (ev) => {
+          let interim = '';
+          let final = '';
+          for (let i = ev.resultIndex; i < ev.results.length; i++) {
+            const tr = ev.results[i][0].transcript;
+            if (ev.results[i].isFinal) final += tr + ' ';
+            else interim += tr;
+          }
+          input.value = (base + final + interim).trim();
+        };
+        recog.onend = () => {
+          listening = false;
+          micBtn.classList.remove('bg-[var(--color-lime)]');
+          micBtn.title = aiDict.mic;
+        };
+        recog.onerror = () => {
+          listening = false;
+          micBtn.classList.remove('bg-[var(--color-lime)]');
+          micBtn.title = aiDict.mic;
+          open();
+          bubble('ai', esc(aiDict.voiceError));
+        };
+        recog.onstart = () => {
+          listening = true;
+          base = input.value ? input.value + ' ' : '';
+          micBtn.classList.add('bg-[var(--color-lime)]');
+          micBtn.title = aiDict.micListening;
+          open();
+        };
+        recog.start();
+      } catch {
+        open();
+        bubble('ai', esc(aiDict.voiceError));
+      }
+    });
+  }
+
+  // ---- Lead handoff: саммарі діалогу → форма #contact ----
+  leadBtn?.addEventListener('click', () => {
+    const lines = history.slice(-6).map((m) => `${m.role === 'user' ? 'Kunde' : 'AI'}: ${m.content}`.slice(0, 600));
+    const summary = lines.join('\n').slice(0, 1500);
+    const formEl = document.getElementById('contact-form');
+    const msgField = formEl?.querySelector('textarea[name="message"]');
+    if (msgField && !msgField.value) {
+      msgField.value = `${PAGE_LANG === 'no' ? 'Hei! Jeg snakket med AI-manageren: ' : 'Hi! I talked to the AI manager: '}\n${summary}`;
+    }
+    bubble('ai', esc(aiDict.leadDone));
+    setTimeout(() => {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      panel.classList.add('hidden');
+    }, 900);
+  });
 
   let opened = false;
   function open() {
@@ -163,7 +351,7 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
     tip.classList.add('hidden');
     if (!opened) {
       opened = true;
-      bubble('ai', esc(uiGreet));
+      bubble('ai', esc(aiDict.greet || ''));
     }
     setTimeout(() => input?.focus(), 50);
   }
@@ -174,24 +362,21 @@ const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-
 
   document.querySelectorAll('.ai-chip').forEach((ch) =>
     ch.addEventListener('click', async () => {
-      open();
       const q = ch.dataset.chip || '';
-      bubble('me', esc(q));
-      const t = bubble('ai', '…');
-      t.innerHTML = await askAI(q);
-      box.scrollTop = box.scrollHeight;
+      pendingFiles = [];
+      renderFileChips();
+      await sendUserMessage(q, []);
     })
   );
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const q = input.value.trim();
-    if (!q) return;
-    open();
-    bubble('me', esc(q));
+    if (!q && !pendingFiles.length) return;
+    const files = pendingFiles;
+    pendingFiles = [];
+    renderFileChips();
     input.value = '';
-    const t = bubble('ai', '…');
-    t.innerHTML = await askAI(q);
-    box.scrollTop = box.scrollHeight;
+    await sendUserMessage(q || (PAGE_LANG === 'no' ? 'Se vedleggene og foreslå pakke.' : 'See the attachments and suggest a package.'), files);
   });
 </script>
