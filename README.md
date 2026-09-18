@@ -27,9 +27,10 @@ Routes: `/no/` (default), `/en/`, `/` redirects to `/no/`.
 | `PUBLIC_CAL_LINK` | Vercel env | Cal.com booking link |
 | `PUBLIC_FORMSPOREE_ID` | Vercel env | `xxxxx` from formspree.io — without it form shows success-note (demo mode) |
 | `PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare → Vercel env | Turnstile widget |
-| `PUBLIC_OPENROUTER_API_KEY` | OpenRouter → Vercel env | AI-manager brain; without it widget answers locally (fallback) |
-| `PUBLIC_OPENROUTER_MODEL` | Vercel env | e.g. `openai/gpt-4o-mini`, `anthropic/claude-3.5-haiku` |
-| `PUBLIC_OPENROUTER_SITE_URL` | Vercel env | `https://serhord.dev` for OpenRouter rankings |
+| `PUBLIC_OPENROUTER_MODEL` | Vercel env | e.g. `openai/gpt-4o-mini`, `anthropic/claude-3.5-haiku` (public default, safe) |
+| `OPENROUTER_API_KEY` | OpenRouter → Vercel env (**Sensitive, без `PUBLIC_`!**) | AI-manager brain, тільки сервер `/api/chat`; без нього віджет відповідає локально (fallback) |
+| `OPENROUTER_MODEL` | Vercel env (server) | e.g. `openai/gpt-4o-mini` — дефолт для `/api/chat` |
+| `OPENROUTER_SITE_URL` | Vercel env (server) | `https://serhord.dev` for OpenRouter rankings |
 
 ## Deploy GitHub → Vercel → Cloudflare
 

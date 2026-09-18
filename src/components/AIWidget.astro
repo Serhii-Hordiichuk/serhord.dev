@@ -8,12 +8,10 @@ interface Props {
 const { t, lang } = Astro.props;
 const ai = (t as any).ai;
 
-const OPENROUTER_KEY = import.meta.env.PUBLIC_OPENROUTER_API_KEY || '';
 const OPENROUTER_MODEL = import.meta.env.PUBLIC_OPENROUTER_MODEL || 'openai/gpt-4o-mini';
-const SITE_URL = import.meta.env.PUBLIC_OPENROUTER_SITE_URL || 'https://serhord.dev';
 ---
 
-<div id="ai-widget" data-lang={lang} data-has-key={OPENROUTER_KEY ? '1' : ''} data-key={OPENROUTER_KEY} data-model={OPENROUTER_MODEL} data-site={SITE_URL}>
+<div id="ai-widget" data-lang={lang} data-model={OPENROUTER_MODEL}>
   <button
     id="ai-fab"
     aria-label="Open AI manager"
@@ -79,18 +77,10 @@ const SITE_URL = import.meta.env.PUBLIC_OPENROUTER_SITE_URL || 'https://serhord.
   const form = document.getElementById('ai-form');
   const input = document.getElementById('ai-input');
 
-  const hasKey = root?.dataset.hasKey === '1';
   const model = root?.dataset.model || 'openai/gpt-4o-mini';
-  const siteUrl = root?.dataset.site || location.origin;
   const PAGE_LANG = root?.dataset.lang || 'no';
 
-  const COMPANY = PAGE_LANG === 'no'
-    ? `SerHord.dev: webutvikling (Astro/Next, 5900kr+), drift (VPS/backup/e-post), KI på egne data (EU), OSINT+sikkerhet+personvern (OWASP-sjekk, lekkasje, 2900kr+), verksted: virus-rens 990kr+, OS-install Win/Linux/ChromeOS 790kr+, SSD/RAM/skjerm/batteri, lokal server/NAS Nextcloud+VPN, vedlikehold. Fastpris, du eier alt, svar 24t, norsk faktura. Base Ørsta/Volda — besøk der, ring +47 96 68 92 37. Kontakt: telefon, skjema + Cal.com intro.`
-    : `SerHord.dev: web dev (Astro/Next, NOK 5900+), ops (VPS/backup/email), AI on your data (EU), OSINT+security+privacy (OWASP check, leaks, NOK 2900+), workshop: malware cleanup NOK 990+, OS install Win/Linux/ChromeOS NOK 790+, SSD/RAM/screen/battery, local server/NAS Nextcloud+VPN, care plans. Fixed price, you own everything, 24h reply. Based in Ørsta/Volda, Norway. Contact: call +47 96 68 92 37, form + Cal.com intro.`;
-
-  const SYS = `You are the SerHord.dev AI manager for individuals & small business in Norway. Language: reply in ${PAGE_LANG === 'no' ? 'Norwegian Bokmål' : 'English'}. Be honest, calm, concrete. COMPANY: ${COMPANY} RULES: 1) Always end with ONE irresistible concrete next step: fixed-price package + CTA "→ #contact" or booking. Never refuse — if out of scope, offer closest alternative + honest boundary. 2) OSINT/security only legal/ethical: open sources + consent, no hacking/stalking; say so briefly. 3) Keep answers under 120 words, bullets allowed. 4) Prices NOK only: Start 5900, Business OS 17900, Care 990/mo, OSINT 2900, malware cleanup 990, OS install 790, repair from 1500, server/NAS from 6900, maintenance from 490/mo. Base Ørsta/Volda — visits there, calls welcome at +47 96 68 92 37.`;
-
-  const history = [{ role: 'system', content: SYS }];
+  const history = [];
 
   function bubble(who, text) {
     const wrap = document.createElement('div');
@@ -147,22 +137,19 @@ const SITE_URL = import.meta.env.PUBLIC_OPENROUTER_SITE_URL || 'https://serhord.
   }
 
   async function askAI(q) {
-    if (!hasKey) return localBrain(q);
     history.push({ role: 'user', content: q });
     try {
-      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${root.dataset.key || ''}`,
-          'HTTP-Referer': siteUrl,
-          'X-Title': 'SerHord.dev AI manager',
         },
-        body: JSON.stringify({ model, messages: history.slice(-12), temperature: 0.6, max_tokens: 400 }),
+        body: JSON.stringify({ messages: history.slice(-12), lang: PAGE_LANG, model }),
       });
-      if (!res.ok) throw new Error('openrouter ' + res.status);
+      if (!res.ok) throw new Error('chat ' + res.status);
       const data = await res.json();
-      const text = data.choices?.[0]?.message?.content || '';
+      const text = data.text || '';
+      if (!text) throw new Error('empty');
       history.push({ role: 'assistant', content: text });
       return esc(text) + `<br><br><a href="#contact" style="font-weight:700;text-decoration:underline">👉 ${PAGE_LANG === 'no' ? 'Be om dette' : 'Request this'} →</a>`;
     } catch (e) {
