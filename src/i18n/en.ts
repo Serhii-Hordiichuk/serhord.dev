@@ -100,6 +100,15 @@ export const en: Dict = {
       { name: 'Care', price: '€79/mo', desc: 'Sleep well. I watch it.', feats: ['Updates', 'Backup checks', 'Small tweaks 1h/mo', 'Cancel monthly'], cta: 'Ask for Care' },
     ],
     note: 'Something else? OSINT/security check from €240, malware cleanup from €80, OS install from €65. Just ask — I answer honestly.',
+    extraTitle: 'Fixed price on small jobs — same honest style.',
+    extras: [
+      { name: 'OSINT / security check', price: 'from €240', desc: 'Leak + OWASP check + privacy report with fix.' },
+      { name: 'Malware cleanup', price: 'from €80', desc: 'Cleanup + antivirus + browser/email hardening + 2FA.' },
+      { name: 'OS installation', price: 'from €65', desc: 'Windows / Linux / ChromeOS — drivers and language ready.' },
+      { name: 'Repair & parts', price: 'from €120', desc: 'SSD/RAM, screen, battery — fixed quote first.' },
+      { name: 'Local server / NAS', price: 'from €590', desc: 'Nextcloud + 3-2-1 backup + VPN, incl. setup.' },
+      { name: 'Maintenance', price: 'from €39/mo', desc: 'Regular checks, updates and cleanup.' },
+    ],
   },
   ai: {
     name: 'Serhord AI manager',

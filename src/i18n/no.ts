@@ -98,6 +98,15 @@ export const no = {
       { name: 'Care', price: '990 kr/mnd', desc: 'Sov godt. Jeg passer på.', feats: ['Oppdateringer', 'Backup-kontroll', 'Småendringer 1 t/mnd', 'Oppsigbar månedlig'], cta: 'Be om Care' },
     ],
     note: 'Trenger noe annet? OSINT/sikkerhetssjekk fra 2 900 kr, virus-rens fra 990 kr, OS-install fra 790 kr. Spør — jeg svarer ærlig.',
+    extraTitle: 'Fastpris på småjobber — samme ærlige stil.',
+    extras: [
+      { name: 'OSINT / sikkerhetssjekk', price: 'fra 2 900 kr', desc: 'Lekkasje + OWASP-sjekk + personvern-rapport med fiks.' },
+      { name: 'Virus-rens', price: 'fra 990 kr', desc: 'Rens + antivirus + nettleser/e-post-herding + 2FA.' },
+      { name: 'OS-installasjon', price: 'fra 790 kr', desc: 'Windows / Linux / ChromeOS — drivere og norsk klart.' },
+      { name: 'Reparasjon & deler', price: 'fra 1 500 kr', desc: 'SSD/RAM, skjerm, batteri — fastpris før vi skrur.' },
+      { name: 'Lokal server / NAS', price: 'fra 6 900 kr', desc: 'Nextcloud + backup 3-2-1 + VPN, inkl. oppsett.' },
+      { name: 'Vedlikehold', price: 'fra 490 kr/mnd', desc: 'Faste sjekker, oppdateringer og rydding.' },
+    ],
   },
   ai: {
     name: 'Serhord AI-manager',

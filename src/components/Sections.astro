@@ -115,6 +115,20 @@ const { t } = Astro.props;
       ))}
     </div>
     <p class="mt-6 rounded-xl bg-[var(--color-amber-soft)] px-4 py-3 text-sm">◉ {t.pricing.note}</p>
+
+    <p class="mono-label mt-8 text-[var(--color-muted)]">{(t.pricing as any).extraTitle}</p>
+    <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {(t.pricing as any).extras.map((e: any) => (
+        <article class="card-hover flex flex-col rounded-2xl border border-[var(--color-line)] bg-white p-5">
+          <h3 class="text-[15px] font-semibold">{e.name}</h3>
+          <p class="mt-1 text-xl font-bold tracking-tight">{e.price}</p>
+          <p class="mt-1 flex-1 text-sm leading-relaxed text-[var(--color-ink-soft)]">{e.desc}</p>
+          <a href="#contact" class="mt-4 block rounded-full border border-[var(--color-ink)] py-2 text-center text-[13px] font-semibold hover:bg-[var(--color-ink)] hover:text-white">
+            {t.lang === 'no' ? 'Be om' : 'Request'} →
+          </a>
+        </article>
+      ))}
+    </div>
   </div>
 </section>
 
