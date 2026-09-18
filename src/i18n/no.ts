@@ -108,12 +108,9 @@ export const no = {
   },
   ai: {
     name: 'Serhord AI-manager',
-    online: 'på nett',
-    greet: 'Hei! Jeg er AI-manageren til SerHord.dev. Fortell hva du trenger — nettside, server, KI, sikkerhet eller PC-hjelp — så foreslår jeg konkret pakke med fastpris. Hva sliter du med i dag?',
+    greet: 'Hei, så hyggelig at du stakk innom! 😊 Jeg er AI-manageren her på SerHord.dev. Si meg — hva heter du, og hvordan har du dagen din i dag?',
     placeholder: 'Skriv, snakk 🎙️ eller legg ved filer 📎…',
     send: 'Send',
-    chips: ['Trenger nettside', 'Virus / treg PC', 'KI på mine data', 'Sikkerhetssjekk'],
-    note: 'Demo via OpenRouter. Uten nøkkel svarer jeg lokalt — fortsatt ærlig.',
     offerCta: 'Be om dette →',
     mic: 'Snakk i stedet for å skrive',
     micListening: 'Lytter… klikk igjen for å stoppe',

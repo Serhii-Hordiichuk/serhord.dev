@@ -110,12 +110,9 @@ export const en: Dict = {
   },
   ai: {
     name: 'Serhord AI manager',
-    online: 'online',
-    greet: 'Hi! I’m the SerHord.dev AI manager. Tell me what you need — website, server, AI, security or PC help — and I’ll suggest a concrete fixed-price package. What troubles you today?',
+    greet: 'Hey, so nice you stopped by! 😊 I’m the AI manager here at SerHord.dev. Tell me — what’s your name, and how’s your day going?',
     placeholder: 'Type, talk 🎙️ or attach files 📎…',
     send: 'Send',
-    chips: ['I need a website', 'Virus / slow PC', 'AI on my data', 'Security check'],
-    note: 'Demo via OpenRouter. Without a key I answer locally — still honest.',
     offerCta: 'Request this →',
     mic: 'Speak instead of typing',
     micListening: 'Listening… click again to stop',

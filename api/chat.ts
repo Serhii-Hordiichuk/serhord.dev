@@ -26,7 +26,7 @@ SALES PLAYBOOK:
 3) Innvendinger: pris → bryt ned verdi og tilby mindre startpakke; "tenke på det" → foreslå gratis 15-min intro med konkret agenda; tillit → vis til fastpris skriftlig, eierskap, ingen binding.
 4) Vedlagte filer/lenker: LES dem faktisk — referer konkret til innholdet deres (krav, sider, tekniske detaljer), still oppfølgingsspørsmål som viser at du forstod. Kan du diskutere prosjektdetaljer på alvor.
 5) Aldri si du kan se bilder/skjermbilder — modellen er text-only. Be om å beskrive med ord eller sende via kontaktskjemaet.
-6) Hver melding: max 120 ord, kuler tillatt, alltid ETT konkret neste steg (f.eks. "Send meg X, så gir jeg fastpris i morgen" eller booking). Aldri nekt — utenfor scope? Tilby nærmeste alternativ + ærlig grense.
+6) Snakk som et varmt menneske, ikke som en brosjyre: korte meldinger (max ~70 ord), ETT spørsmål om gangen, aldri prisliste-vegg med mindre de spør. Smalltalk er velkommen — spør om dagen, humøret, været, helgen — og husk det de forteller (bruk navnet deres av og til, referer til ting de sa tidligere). Samle info gradvis som en god selger: navn → hva de driver med → behov → tidspunkt → kontaktinfo. Be om telefon/e-post først når de er varme (ber om tilbud/booking/sier ja) — aldri i første melding. Målet: de skal kose seg og ville komme tilbake og prate mer. Avslutt som oftest med et spørsmål eller en myk oppfordring; konkret CTA (tilbud/booking/skjema) når det passer.
 7) OSINT/sikkerhet kun lovlig: åpne kilder + samtykke, ingen hacking/stalking.
 8) Når kunden er varm (sier ja / ber om tilbud / gir kontaktinfo): be om navn + telefon/e-post, oppsummer behov + foreslått pakke + pris, og si at du fyller kontaktskjemaet klart for dem.`;
 
@@ -40,7 +40,7 @@ SALES PLAYBOOK:
 3) Objections: price → break down value, offer a smaller starter; "need to think" → propose a free 15-min intro with a concrete agenda; trust → point to written fixed quotes, ownership, no lock-in.
 4) Attached files/links: actually READ them — reference their content concretely (requirements, pages, technical details), ask follow-ups proving understanding. Discuss project details seriously.
 5) Never claim you can see images/screenshots — the model is text-only. Ask to describe in words or send via the contact form.
-6) Every message: max 120 words, bullets ok, always ONE concrete next step. Never refuse — out of scope? Offer the closest alternative + honest boundary.
+6) Talk like a warm human, not a brochure: short messages (max ~70 words), ONE question at a time, never a price-list wall unless they ask. Small talk is welcome — ask about their day, mood, weather, weekend — and remember what they tell you (use their name occasionally, refer back to things they said). Collect info gradually like a good salesperson: name → what they do → need → timeline → contact info. Ask for phone/email only once they're warm (asking for a quote/booking/saying yes) — never in the first message. Goal: they enjoy it and want to come back and chat more. Usually end with a question or a soft nudge; concrete CTA (quote/booking/form) when it fits.
 7) OSINT/security legal only: open sources + consent, no hacking/stalking.
 8) When the customer is hot (says yes / asks for a quote / shares contact info): ask for name + phone/email, summarise need + proposed package + price, and say you'll get the contact form ready for them.`;
 
@@ -170,7 +170,13 @@ async function fetchUrlText(url: string): Promise<string> {
   }
 }
 
-async function callOpenRouter(apiKey: string, siteUrl: string, model: string, system: string, messages: ChatMsg[]) {
+async function callOpenRouterStream(
+  apiKey: string,
+  siteUrl: string,
+  model: string,
+  system: string,
+  messages: ChatMsg[],
+) {
   return fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -182,10 +188,46 @@ async function callOpenRouter(apiKey: string, siteUrl: string, model: string, sy
     body: JSON.stringify({
       model,
       messages: [{ role: 'system', content: system }, ...messages],
-      temperature: 0.6,
-      max_tokens: 500,
+      temperature: 0.7,
+      max_tokens: 400,
+      stream: true,
     }),
   });
+}
+
+// Прокидаємо SSE-токени OpenRouter клієнту 1-в-1 (живий стрімінг відповіді).
+async function pipeStream(upstream: Response, res: any) {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache, no-transform',
+    Connection: 'keep-alive',
+    'X-Accel-Buffering': 'no',
+  });
+  const reader = upstream.body!.getReader();
+  const decoder = new TextDecoder();
+  let buf = '';
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += decoder.decode(value, { stream: true });
+    const lines = buf.split('\n');
+    buf = lines.pop() || '';
+    for (const line of lines) {
+      const t = line.trim();
+      if (!t.startsWith('data:')) continue;
+      const payload = t.slice(5).trim();
+      if (payload === '[DONE]') continue;
+      try {
+        const json = JSON.parse(payload);
+        const token: string = json.choices?.[0]?.delta?.content || '';
+        if (token) res.write(`data: ${JSON.stringify({ token })}\n\n`);
+      } catch {
+        // битий чанк — пропускаємо
+      }
+    }
+  }
+  res.write('data: [DONE]\n\n');
+  res.end();
 }
 
 export default async function handler(req: any, res: any) {
@@ -250,19 +292,15 @@ export default async function handler(req: any, res: any) {
       process.env.OPENROUTER_SITE_URL || process.env.PUBLIC_OPENROUTER_SITE_URL || 'https://serhord.dev';
     const system = lang === 'en' ? SYSTEM_EN : SYSTEM_NO;
 
-    const upstream = await callOpenRouter(apiKey, siteUrl, primary, system, messages);
-    const usedModel = primary;
-    const viaFallback = false;
-    if (!upstream.ok) {
+    const upstream = await callOpenRouterStream(apiKey, siteUrl, primary, system, messages);
+    if (!upstream.ok || !upstream.body) {
       const text = await upstream.text().catch(() => '');
       console.error('OpenRouter error:', upstream.status, text.slice(0, 500));
       return res.status(502).json({ error: 'Upstream error' });
     }
 
-    const data = await upstream.json();
-    const text: string = data.choices?.[0]?.message?.content || '';
-    if (!text) return res.status(502).json({ error: 'Empty upstream reply' });
-    return res.status(200).json({ text, model: usedModel, viaFallback });
+    await pipeStream(upstream, res);
+    return;
   } catch (e) {
     console.error('api/chat failed:', e);
     return res.status(500).json({ error: 'Internal error' });

@@ -33,7 +33,8 @@ Routes: `/no/` (default), `/en/`, `/` redirects to `/no/`.
 
 ## AI-manager widget
 
-- Brain: Nemotron 3 Ultra (text) via `/api/chat`; key never reaches the browser.
+- Brain: Nemotron 3 Ultra (text) via `/api/chat`, **streamed** (SSE tokens proxied 1:1); key never reaches the browser.
+- Persona: warm human-like sales manager — small talk (mood, weather), one short message + one question at a time, gradually collects name → business → need → timeline → contact. No quick-question chips; the AI leads the conversation.
 - Voice input: Web Speech API (free, Chrome/Edge best), auto-hidden where unsupported.
 - Attachments: text/code files (≤100 KB, ≤3) read locally and sent as context; pasted URLs fetched server-side (≤2, stripped, capped); images politely declined (model is text-only) with guidance.
 - Lead handoff: after first AI reply a button prefills `#contact` with the dialogue summary.
