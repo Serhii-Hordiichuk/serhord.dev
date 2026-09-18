@@ -68,7 +68,6 @@ export const no = {
         list: ['Lekkasje & passord-sjekk', 'OWASP Top 10 nettside-sjekk', 'Personvern & sporings-opprydding', 'Tiltaksrapport + fiks'],
       },
     ],
-    extrasLabel: 'I tillegg — verksted & hjemmeservice',
     extrasTitle: 'Småtingene som også må fikses.',
     extras: [
       { t: 'Fjerning av virus & skadevare', d: 'Rens, antivirus-oppsett og sikring av e-post / nettleser.' },
@@ -128,7 +127,7 @@ export const no = {
   about: {
     label: '06 — om meg',
     title: 'Hei, jeg er Serhii — SerHord.dev.',
-    text: 'Utvikler og driftsansvarlig med fokus på små bedrifter. Jeg bygger raske nettsider, drifter Linux-servere, kobler på KI der det lønner seg og gjør edruelige OSINT-sjekker. Bor i Norge, fakturerer norsk, svarer som et menneske.',
+    text: 'Utvikler og driftsansvarlig med fokus på små bedrifter. Jeg bygger raske nettsider, drifter Linux-servere, kobler på KI der det lønner seg og gjør edruelige OSINT-sjekker. Holder til i Ørsta/Volda, fakturerer norsk, svarer som et menneske — ring +47 96 68 92 37.',
     bullets: ['Norsk + engelsk kommunikasjon', 'Fastpris og skriftlige avtaler', 'Dokumentasjon du faktisk forstår'],
   },
   faq: {
@@ -151,7 +150,7 @@ export const no = {
     type: 'Hva gjelder det?',
     types: ['Nettside / webapp', 'Server / drift', 'KI-integrasjon', 'OSINT-sjekk', 'Annet'],
     message: 'Melding',
-    messagePh: 'f.eks. Vi er en salong i Bergen og trenger booking-side + e-post…',
+    messagePh: 'f.eks. Vi er en salong i Ørsta og trenger booking-side + e-post…',
     send: 'Send melding',
     privacy: 'Beskyttet av Cloudflare Turnstile. Ingen spam, ingen nyhetsbrev uten samtykke.',
     calTitle: 'Eller book direkte',

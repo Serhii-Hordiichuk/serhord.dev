@@ -70,7 +70,6 @@ export const en: Dict = {
         list: ['Leak & password check', 'OWASP Top 10 website check', 'Privacy & tracker cleanup', 'Action report + fix'],
       },
     ],
-    extrasLabel: 'Also — workshop & home service',
     extrasTitle: 'The small things that also need fixing.',
     extras: [
       { t: 'Malware removal', d: 'Cleanup, antivirus setup and email / browser hardening.' },
@@ -130,7 +129,7 @@ export const en: Dict = {
   about: {
     label: '06 — about',
     title: 'Hi, I’m Serhii — SerHord.dev.',
-    text: 'Developer and sysadmin focused on small business. Fast websites, Linux servers, AI where it pays off, sober OSINT checks. Based in Norway, invoices properly, replies like a human.',
+    text: 'Developer and sysadmin focused on small business. Fast websites, Linux servers, AI where it pays off, sober OSINT checks. Based in Ørsta/Volda, Norway, invoices properly, replies like a human — call +47 96 68 92 37.',
     bullets: ['Norwegian + English communication', 'Fixed price and written agreements', 'Docs you actually understand'],
   },
   faq: {
@@ -153,7 +152,7 @@ export const en: Dict = {
     type: 'What is it about?',
     types: ['Website / web app', 'Server / ops', 'AI integration', 'OSINT check', 'Other'],
     message: 'Message',
-    messagePh: 'e.g. We are a salon in Bergen and need a booking page + email…',
+    messagePh: 'e.g. We are a salon in Volda and need a booking page + email…',
     send: 'Send message',
     privacy: 'Protected by Cloudflare Turnstile. No spam, no newsletter without consent.',
     calTitle: 'Or book directly',
