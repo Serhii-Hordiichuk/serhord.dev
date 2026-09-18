@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://serhord.dev/sitemap-index.xml

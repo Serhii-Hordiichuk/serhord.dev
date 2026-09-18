@@ -1,0 +1,94 @@
+---
+import type { Dict } from '../i18n/no';
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+
+const calLink = import.meta.env.PUBLIC_CAL_LINK || 'https://cal.com/';
+---
+
+<section id="contact" class="bg-[#101d2e] text-white">
+  <div class="mx-auto grid max-w-6xl gap-8 px-5 py-16 md:grid-cols-2">
+    <div>
+      <p class="mono-label text-[var(--color-lime)]">{t.contact.label}</p>
+      <h2 class="mt-3 text-3xl font-semibold leading-tight md:text-[38px]" style="font-family: var(--font-display)">
+        {t.contact.title}
+      </h2>
+
+      <form
+        id="contact-form"
+        class="mt-6 space-y-3 rounded-2xl border border-white/15 bg-white/5 p-5"
+        method="POST"
+        action="#contact"
+      >
+        <p class="font-mono text-xs uppercase tracking-wide text-white/60">✉ {t.contact.formTitle}</p>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <label class="block text-sm">
+            {t.contact.name}
+            <input required name="name" autocomplete="name" class="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2.5 text-white placeholder:text-white/40 focus:border-[var(--color-lime)] focus:outline-none" placeholder="Ola Nordmann" />
+          </label>
+          <label class="block text-sm">
+            {t.contact.email}
+            <input required type="email" name="email" autocomplete="email" class="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2.5 text-white placeholder:text-white/40 focus:border-[var(--color-lime)] focus:outline-none" placeholder="ola@bedrift.no" />
+          </label>
+        </div>
+        <label class="block text-sm">
+          {t.contact.type}
+          <select name="type" class="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2.5 text-white focus:border-[var(--color-lime)] focus:outline-none [&>option]:text-black">
+            {t.contact.types.map((x) => (<option>{x}</option>))}
+          </select>
+        </label>
+        <label class="block text-sm">
+          {t.contact.message}
+          <textarea required name="message" rows={5} class="mt-1 w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2.5 text-white placeholder:text-white/40 focus:border-[var(--color-lime)] focus:outline-none" placeholder={t.contact.messagePh}></textarea>
+        </label>
+        <!-- Cloudflare Turnstile: set PUBLIC_TURNSTILE_SITE_KEY to activate -->
+        <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || ''}></div>
+        <button type="submit" class="w-full rounded-full bg-[var(--color-lime)] py-3 text-sm font-bold text-black hover:bg-white">
+          {t.contact.send}
+        </button>
+        <p class="text-xs leading-relaxed text-white/50">{t.contact.privacy}</p>
+        <p id="form-note" class="hidden rounded-lg bg-[var(--color-lime)]/15 px-3 py-2 text-sm text-[var(--color-lime)]">{t.contact.success}</p>
+      </form>
+      <script>
+        const form = document.getElementById('contact-form');
+        const note = document.getElementById('form-note');
+        const endpoint = import.meta.env.PUBLIC_FORMSPOREE_ID
+          ? `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPOREE_ID}`
+          : '';
+        form?.addEventListener('submit', async (e) => {
+          if (!endpoint) {
+            e.preventDefault();
+            note?.classList.remove('hidden');
+            return;
+          }
+          e.preventDefault();
+          const data = new FormData(form as HTMLFormElement);
+          const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+          if (res.ok) {
+            (form as HTMLFormElement).reset();
+            note?.classList.remove('hidden');
+          }
+        });
+      </script>
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    </div>
+
+    <div class="flex flex-col justify-center">
+      <div class="rounded-2xl border border-[var(--color-lime)]/30 bg-[var(--color-lime)]/10 p-6">
+        <p class="font-mono text-xs uppercase tracking-wide text-[var(--color-lime)]">◷ cal.com</p>
+        <h3 class="mt-2 text-xl font-semibold">{t.contact.calTitle}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-white/70">{t.contact.calNote}</p>
+        <a href={calLink} target="_blank" rel="noopener" class="mt-4 inline-block rounded-full bg-white px-6 py-2.5 text-sm font-bold text-black hover:bg-[var(--color-lime)]">
+          {t.contact.calCta} →
+        </a>
+        <div class="mt-4 overflow-hidden rounded-xl border border-white/15 bg-black/30 p-3 font-mono text-xs text-white/60">
+          <p>PUBLIC_CAL_LINK = {calLink}</p>
+          <p class="mt-1">→ embed Cal inline here when ready (cal.com → Embed → Inline)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

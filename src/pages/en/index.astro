@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Hero from '../../components/Hero.astro';
+import Sections from '../../components/Sections.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import { getDict } from '../../i18n/index';
+
+const lang = 'en';
+const t = getDict(lang);
+---
+
+<Layout title={t.meta.title} description={t.meta.description} lang={lang} locale={t.locale}>
+  <Header t={t} lang={lang} />
+  <main>
+    <Hero t={t} />
+    <Sections t={t} />
+    <Contact t={t} />
+  </main>
+  <Footer t={t} lang={lang} />
+</Layout>
