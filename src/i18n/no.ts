@@ -15,6 +15,7 @@ export const no = {
     faq: 'FAQ',
     cta: 'Book intro',
     theme: 'Bytt lyst/mørkt tema',
+    langLabel: 'Bytt språk',
   },
   hero: {
     eyebrow: '~/ privatpersoner & små bedrifter — 1–20 ansatte',
@@ -109,6 +110,8 @@ export const no = {
   },
   ai: {
     name: 'Serhord AI-manager',
+    open: 'Åpne AI-manager',
+    close: 'Lukk',
     greet: 'Hei, så hyggelig at du stakk innom! Jeg er AI-manageren her på SerHord.dev. Si meg — hva heter du, og hvordan har du dagen din i dag?',
     placeholder: 'Skriv, snakk eller legg ved filer…',
     send: 'Send',
@@ -168,15 +171,28 @@ export const no = {
     direct: 'Direkte',
     phone: '+47 96 68 92 37',
     area: 'Ørsta / Volda — kommer gjerne på besøk hos deg, eller du er velkommen til meg',
-    visit: 'Ring for å avtale møte — jeg kommer til deg i Ørsta / Volda, eller du kan komme til meg.',
+    visit: 'Send melding via skjemaet — slik de fleste kunder gjør — jeg svarer innen 24 timer. Vil du heller ringe for å avtale møte, kommer jeg gjerne til deg i Ørsta / Volda.',
     success: 'Takk! Meldingen er klar til sending — koble Formspree/Resend-nøkkel for å aktivere.',
   },
   footer: {
     tagline: 'Rolig IT for små bedrifter. Bygd ærlig, driftet ansvarlig.',
     phone: '+47 96 68 92 37',
     area: 'Ørsta / Volda, Møre og Romsdal',
-    rights: '© 2026 SerHord.dev — Org.nr. kommer. Personvern: vi samler minimalt.',
-    stack: 'Bygd med Astro • Hostet på Vercel • Beskyttet av Cloudflare',
+    rights: '© 2026 SerHord.dev • Org.nr. 000 000 000 • Personvern: vi samler minimalt.',
+    personalNote: 'Bygd med nysgjerrighet, klassikere og Linux i Ørsta — møt mennesket bak:',
+    personalName: 'serhiihordiichuk.no',
+    personalUrl: 'https://serhiihordiichuk.no',
+    companyTitle: 'Selskap',
+    company: [
+      { label: 'Samarbeid', href: 'samarbeid' },
+      { label: 'Karriere', href: 'karriere' },
+      { label: 'Opplæring', href: 'opplaering' },
+      { label: 'Tilbud & mal', href: 'tilbud' },
+      { label: 'Faktura & betaling', href: 'faktura' },
+      { label: 'Personvern', href: 'personvern' },
+      { label: 'Vilkår', href: 'vilkar' },
+      { label: 'Lisenser', href: 'lisenser' },
+    ],
   },
 };
 

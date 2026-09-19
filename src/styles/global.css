@@ -21,8 +21,8 @@
   --color-night-soft: #182642;
 }
 
-/* Темна тема: перемикається класом .dark на <html> (тогл у хедері,
-   за замовчуванням — з prefers-color-scheme пристрою). */
+/* Dark theme: toggled via the .dark class on <html> (header toggle,
+   defaults to the device prefers-color-scheme). */
 .dark {
   --color-paper: #0a1120;
   --color-cream: #0f1830;
@@ -64,7 +64,7 @@ body {
     linear-gradient(to bottom, rgba(237, 243, 251, 0.06) 1px, transparent 1px);
 }
 
-/* хедер: у темній темі hover має ставати світлим, а не чорним */
+/* header: in the dark theme hover should turn light, not black */
 .dark header nav a:hover {
   color: #fff;
 }

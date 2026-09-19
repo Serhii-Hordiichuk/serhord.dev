@@ -8,6 +8,12 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Language
+
+- Code comments, docs, and README are strictly English.
+- Site copy lives in `src/i18n/no.ts` + `en.ts` (Norwegian/English).
+- Chat with the owner in Ukrainian; keep the repo itself English-only.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build

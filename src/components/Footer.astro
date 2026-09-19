@@ -10,24 +10,43 @@ const { t, lang } = Astro.props;
 
 <footer class="border-t border-[var(--color-line)] bg-[var(--color-paper)]">
   <div class="mx-auto max-w-6xl px-5 py-10">
-    <div class="flex flex-col justify-between gap-6 md:flex-row md:items-start">
+    <div class="grid gap-8 md:grid-cols-[1.2fr_0.6fr_0.8fr] md:items-start">
       <div>
-        <p class="font-mono text-lg">serhord<span class="text-[var(--color-accent)]">.dev_</span></p>
+        <p class="font-mono text-lg" translate="no"><span class="notranslate">serhord<span class="text-[var(--color-accent)]">.dev_</span></span></p>
         <p class="mt-2 max-w-sm text-sm text-[var(--color-ink-soft)]">{t.footer.tagline}</p>
         <p class="mt-3 text-sm font-semibold">
-          <a href="tel:+4796689237" class="hover:underline">✆ {(t.footer as any).phone}</a>
-          <span class="font-normal text-[var(--color-ink-soft)]"> · {(t.footer as any).area}</span>
+          <a href="tel:+4796689237" class="hover:underline" translate="no"><span class="notranslate">✆ {t.footer.phone}</span></a>
+          <span class="font-normal text-[var(--color-ink-soft)]"> · {t.footer.area}</span>
+        </p>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-[var(--color-ink-soft)]">
+          {t.footer.personalNote}
+          <a
+            href={t.footer.personalUrl}
+            target="_blank"
+            rel="noopener"
+            translate="no"
+            class="notranslate ml-1 font-mono font-semibold text-[var(--color-accent)] underline underline-offset-2 hover:no-underline"
+          >
+            {t.footer.personalName} →
+          </a>
         </p>
       </div>
-      <nav class="flex gap-4 text-sm">
+      <nav class="flex flex-col gap-2 text-sm">
+        <p class="mono-label text-[var(--color-muted)]">~/</p>
         <a href={`/${lang}/`} class="hover:underline">↑ top</a>
-        <a href="#services" class="hover:underline">{t.nav.services}</a>
-        <a href="#contact" class="hover:underline">{t.nav.cta}</a>
+        <a href={`/${lang}/#services`} class="hover:underline">{t.nav.services}</a>
+        <a href={`/${lang}/#pricing`} class="hover:underline">{t.nav.pricing}</a>
+        <a href={`/${lang}/#contact`} class="hover:underline">{t.nav.cta}</a>
+      </nav>
+      <nav class="flex flex-col gap-2 text-sm" aria-label={t.footer.companyTitle}>
+        <p class="mono-label text-[var(--color-muted)]">~/ {t.footer.companyTitle}</p>
+        {t.footer.company.map((l) => (
+          <a href={`/${lang}/${l.href}`} class="hover:underline">{l.label}</a>
+        ))}
       </nav>
     </div>
-    <div class="mt-8 flex flex-col gap-2 border-t border-[var(--color-line)] pt-6 font-mono text-xs text-[var(--color-muted)] md:flex-row md:justify-between">
+    <div class="mt-8 border-t border-[var(--color-line)] pt-6 font-mono text-xs text-[var(--color-muted)]">
       <p>{t.footer.rights}</p>
-      <p>{t.footer.stack}</p>
     </div>
   </div>
 </footer>

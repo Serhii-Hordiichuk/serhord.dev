@@ -27,7 +27,7 @@ Routes: `/no/` (default), `/en/`, `/` redirects to `/no/`.
 | `PUBLIC_CAL_LINK` | Vercel env | Cal.com booking link |
 | `PUBLIC_FORMSPOREE_ID` | Vercel env | `xxxxx` from formspree.io — without it form shows success-note (demo mode) |
 | `PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare → Vercel env | Turnstile widget |
-| `OPENROUTER_API_KEY` | OpenRouter → Vercel env (**Sensitive, без `PUBLIC_`!**) | AI-manager brain, тільки сервер `/api/chat`; без нього віджет відповідає локально (fallback) |
+| `OPENROUTER_API_KEY` | OpenRouter → Vercel env (**Sensitive, no `PUBLIC_` prefix!**) | AI-manager brain, server-side `/api/chat` only; without it the widget answers locally (fallback) |
 | `OPENROUTER_MODEL` | Vercel env (server) | pinned `nvidia/nemotron-3-ultra-550b-a55b:free`, no fallbacks (owner has exclusive tester access) |
 | `OPENROUTER_SITE_URL` | Vercel env (server) | `https://serhord.dev` for OpenRouter rankings |
 
@@ -58,8 +58,9 @@ All copy lives in `src/i18n/no.ts` + `en.ts`. Prices, FAQ, services — edit the
 
 ## What next
 
-- [ ] Real org.nr in footer + privacy page `/no/personvern`
-- [ ] Connect Formspree/Resend + test Turnstile
-- [ ] OG image 1200×630 in `public/og.jpg`
-- [ ] Vercel Analytics + Speed Insights
-- [ ] Norwegian invoice (Vipps/Bank) details on offer PDF
+- [x] Org.nr placeholder in footer (`000 000 000`, 9 digits) + privacy page `/no/personvern`
+- [ ] Real org.nr / account (`0000 00 00000`) / Vipps (`00000`) — replace zeros when received
+- [ ] Connect Formspree/Resend + test Turnstile (needs keys in Vercel env)
+- [x] OG image 1200×630 in `public/og.jpg`
+- [x] Vercel Analytics + Speed Insights
+- [x] Offer template stub `/no/tilbud` (PDF + Vipps-link later)

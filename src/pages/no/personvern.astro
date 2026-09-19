@@ -1,0 +1,13 @@
+---
+import CorpPage from '../../components/CorpPage.astro';
+---
+<CorpPage
+  lang="no"
+  title="Personvern"
+  lead="Vi samler minimalt. Ingen nyhetsbrev uten samtykke, ingen salg av data, EU-hosting der det er mulig."
+  sections={[
+    { h: 'Hva lagres', p: 'Meldinger du sender via kontaktskjema (navn, e-post, tekst) sendes via Formspree/Resend til min e-post og lagres der. Cloudflare Turnstile verifiserer at du er menneske.' },
+    { h: 'AI-widget', p: 'Dialogen sendes til OpenRouter (Nemotron-modell) for å generere svar. Ikke del sensitive personopplysninger eller passord. Historikk begrenses til 12 meldinger.' },
+    { h: 'Dine rettigheter', p: 'Be om innsyn, retting eller sletting på e-post eller telefon +47 96 68 92 37. Svar innen 30 dager.' },
+  ]}
+/>

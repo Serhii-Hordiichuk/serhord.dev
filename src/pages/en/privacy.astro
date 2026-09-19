@@ -1,0 +1,13 @@
+---
+import CorpPage from '../../components/CorpPage.astro';
+---
+<CorpPage
+  lang="en"
+  title="Privacy"
+  lead="We collect minimal data. No newsletter without consent, no data selling, EU hosting where possible."
+  sections={[
+    { h: 'What is stored', p: 'Messages you send via the contact form (name, email, text) go via Formspree/Resend to my email and are stored there. Cloudflare Turnstile verifies you are human.' },
+    { h: 'AI widget', p: 'Dialogue is sent to OpenRouter (Nemotron model) to generate replies. Do not share sensitive personal data or passwords. History limited to 12 messages.' },
+    { h: 'Your rights', p: 'Request access, correction or deletion by email or phone +47 96 68 92 37. Reply within 30 days.' },
+  ]}
+/>

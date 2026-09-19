@@ -3,8 +3,9 @@ import type { Dict } from '../i18n/no';
 
 interface Props {
   t: Dict;
+  lang: string;
 }
-const { t } = Astro.props;
+const { t, lang } = Astro.props;
 ---
 
 <section class="paper-grid relative overflow-hidden border-b border-[var(--color-line)]">
@@ -21,13 +22,13 @@ const { t } = Astro.props;
       <p class="mt-5 max-w-xl text-lg leading-relaxed text-[var(--color-ink-soft)]">{t.hero.sub}</p>
       <div class="mt-7 flex flex-wrap gap-3">
         <a
-          href="#contact"
+          href={`/${lang}/#contact`}
           class="rounded-full bg-[var(--color-accent)] px-6 py-3 text-[15px] font-semibold text-white hover:bg-[var(--color-accent-dark)]"
         >
           {t.hero.ctaPrimary}
         </a>
         <a
-          href="#services"
+          href={`/${lang}/#services`}
           class="rounded-full border border-[var(--color-ink)] px-6 py-3 text-[15px] font-semibold hover:bg-[var(--color-ink)] hover:text-white dark:hover:bg-white dark:hover:text-black"
         >
           {t.hero.ctaSecondary}
@@ -44,14 +45,14 @@ const { t } = Astro.props;
     </div>
 
     <div class="reveal" style="animation-delay: 0.15s">
-      <div class="overflow-hidden rounded-2xl border border-[var(--color-ink)] bg-white shadow-[8px_8px_0_0_var(--color-ink)] dark:bg-night">
+      <div class="overflow-hidden rounded-2xl border border-[var(--color-ink)] bg-white shadow-[8px_8px_0_0_var(--color-ink)] dark:bg-night" translate="no">
         <div class="flex items-center gap-2 border-b border-[var(--color-line)] bg-[var(--color-cream)] px-4 py-2.5">
           <span class="h-3 w-3 rounded-full bg-[#ff5f57]"></span>
           <span class="h-3 w-3 rounded-full bg-[#febc2e]"></span>
           <span class="h-3 w-3 rounded-full bg-[#28c840]"></span>
-          <span class="ml-2 font-mono text-xs text-[var(--color-muted)]">{t.hero.terminalTitle}</span>
+          <span class="notranslate ml-2 font-mono text-xs text-[var(--color-muted)]">{t.hero.terminalTitle}</span>
         </div>
-        <div class="space-y-2.5 bg-[#0f1d2e] p-5 font-mono text-[13px] leading-relaxed text-green-200">
+        <div class="notranslate space-y-2.5 bg-[#0f1d2e] p-5 font-mono text-[13px] leading-relaxed text-green-200">
           <p><span class="text-gray-500">$</span> uptime --site serhord.dev</p>
           <p>✓ <span class="text-white">deploy ok</span> <span class="text-gray-400">— 214ms edge</span></p>
           <p>✓ backup daily <span class="text-gray-400">— tested restore</span></p>

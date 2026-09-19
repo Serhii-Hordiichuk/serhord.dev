@@ -1,14 +1,18 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
   title: string;
   description: string;
   lang: string;
   locale: string;
+  path?: string;
 }
 
-const { title, description, lang, locale } = Astro.props;
+const { title, description, lang, locale, path = `/${lang}/` } = Astro.props;
+const canonical = `https://serhord.dev${path}`;
 ---
 
 <!doctype html>
@@ -18,10 +22,17 @@ const { title, description, lang, locale } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://serhord.dev/og.jpg" />
     <meta property="og:locale" content={locale} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://serhord.dev/og.jpg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f5" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a1120" />
@@ -55,5 +66,7 @@ const { title, description, lang, locale } = Astro.props;
   </head>
   <body class="min-h-screen">
     <slot />
+    <Analytics />
+    <SpeedInsights />
   </body>
 </html>

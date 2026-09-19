@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { getDict } from '../i18n/index';
+
+interface Section {
+  h: string;
+  p: string;
+}
+
+interface Props {
+  lang: 'no' | 'en';
+  title: string;
+  lead: string;
+  sections: Section[];
+  related?: { label: string; href: string }[];
+}
+
+const { lang, title, lead, sections, related = [] } = Astro.props;
+const t = getDict(lang);
+const back = lang === 'no' ? '← Tilbake til forsiden' : '← Back to homepage';
+const relatedTitle = lang === 'no' ? 'Se også' : 'See also';
+---
+
+<Layout title={`${title} — SerHord.dev`} description={lead} lang={lang} locale={t.locale} path={Astro.url.pathname}>
+  <Header t={t} lang={lang} />
+  <main class="mx-auto max-w-3xl px-5 py-14">
+    <a href={`/${lang}/`} class="font-mono text-sm text-[var(--color-accent)] hover:underline">{back}</a>
+    <h1 class="mt-4 text-4xl font-semibold tracking-tight" style="font-family: var(--font-display)">{title}</h1>
+    <p class="mt-4 text-lg leading-relaxed text-[var(--color-ink-soft)]">{lead}</p>
+    <div class="mt-8 space-y-6">
+      {sections.map((s) => (
+        <section class="rounded-2xl border border-[var(--color-line)] bg-white p-6 dark:bg-night">
+          <h2 class="text-xl font-semibold">{s.h}</h2>
+          <p class="mt-2 text-[15px] leading-relaxed text-[var(--color-ink-soft)]">{s.p}</p>
+        </section>
+      ))}
+    </div>
+    {related.length > 0 && (
+      <div class="mt-6 rounded-2xl border border-dashed border-[var(--color-line)] p-6">
+        <p class="mono-label text-[var(--color-muted)]">{relatedTitle}</p>
+        <div class="mt-2 flex flex-wrap gap-3">
+          {related.map((r) => (
+            <a href={r.href} class="font-semibold text-[var(--color-accent)] underline underline-offset-2 hover:no-underline">
+              {r.label} →
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+    <div class="mt-8 rounded-2xl bg-[#101d2e] p-6 text-white">
+      <p class="font-semibold">{lang === 'no' ? 'Spørsmål? Send melding.' : 'Questions? Send a message.'}</p>
+      <a href={`/${lang}/#contact`} class="mt-3 inline-block rounded-full bg-[var(--color-lime)] px-6 py-2.5 text-sm font-bold text-black hover:bg-white">
+        {t.nav.cta} →
+      </a>
+    </div>
+  </main>
+  <Footer t={t} lang={lang} />
+</Layout>
